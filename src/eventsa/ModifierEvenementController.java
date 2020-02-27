@@ -63,14 +63,43 @@ public class ModifierEvenementController implements Initializable {
     });    
     
      nRegion.getItems().add("Ariana");
-      nRegion.getItems().add("Soukra");
+      nRegion.getItems().add("Sidi Bouzid");
+      nRegion.getItems().add("Gafsa");
+      nRegion.getItems().add("Ben Arous");
+      nRegion.getItems().add("Béja");
+      nRegion.getItems().add("Bizerte");
+      nRegion.getItems().add("Sfax");
+      nRegion.getItems().add("Hawaria");
+      nRegion.getItems().add("Kirouane");
+      nRegion.getItems().add("Ben Guerdene");
+      
 //      
 //      nDate.setValue(cec.dpDateE.getValue());
 //        nTitre.setText(cec.tfTitreE.getText());
     }
     @FXML
     private void modifier(ActionEvent event) throws SQLException, IOException {
-        Event e=new Event();
+        EventServices es=new EventServices();
+        if(nTitre.getText ()==null || nDescription.getText ()==null ||nDate.getValue ()==null ||  nRegion.getValue ()==null ){
+        
+           System.out.println("Un ou plusieurs champs non rempli(s)!");
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Erreur");
+            alert.setHeaderText(null);
+            alert.setContentText("Champ(s) obligatoire(s) non rempli(s)!");
+
+            alert.showAndWait();
+     }
+        else if(nTitre.getText ().equals(es.conditionTitre().getTitre())){
+            System.out.println("Titre non disponible!");
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Erreur");
+            alert.setHeaderText(null);
+            alert.setContentText("Titre non disponible!");
+
+            alert.showAndWait();
+        }
+        else{
         nDate.setPromptText("Date de l'événement");
         nDate.setMaxWidth(300);
         nDate.setStyle("-fx-font-size:20");
@@ -88,7 +117,6 @@ public class ModifierEvenementController implements Initializable {
           e.setDate_E(date_E);
           e.setDescription(Description);
           e.setTitre(titre); 
-        EventServices es=new EventServices(); 
          es.modifierEvent(e);
          System.out.println("Succés!");
             Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -107,45 +135,9 @@ public class ModifierEvenementController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(EvenementController.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
+    }}
 
-//        Event e=new Event();
-//        EvenementController ec=new EvenementController();
-//        nDate.setPromptText("Date de l'événement");
-//        nDate.setMaxWidth(300);
-//        nDate.setStyle("-fx-font-size:20");
-//        String date_E=nDate.getEditor().getText();
-//        String titre = nTitre.getText ();
-//         String Description = nDescription.getText ();
-//        if (nRegion.getValue().equals("Ariana"))
-//                {
-//                    e.setRegion("Ariana");
-//                }
-//          if (nRegion.getValue().equals("Soukra"))
-//                {
-//                   e.setRegion("Soukra"); 
-//                }
-//          e.setDate_E(date_E);
-//          e.setDescription(Description);
-//          e.setTitre(titre); 
-//        EventServices es=new EventServices(); 
-//         es.modifierEvent(e);
-//         ec.loadData();
-//         ec.refresh();
-//         FXMLLoader loader = new FXMLLoader
-//                        (getClass()
-//                         .getResource("/event/Evenement.fxml"));
-//        try {
-//            Parent root=loader.load();
-//
-//                            Modifier.getScene().setRoot(root);
-//
-//        } catch (IOException ex) {
-//            Logger.getLogger(EvenementController.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//         
-//         
-//    }
+
         @FXML
     public void back(ActionEvent event) throws Exception {
 

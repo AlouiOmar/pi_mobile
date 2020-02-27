@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="748.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eventsa.HomeController">
+   <children>
+      <ImageView fitHeight="722.0" fitWidth="1280.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@templatejavacreer.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="btnHome" layoutX="222.0" layoutY="24.0" mnemonicParsing="false" onAction="#HomeAction" opacity="0.0" prefHeight="61.0" prefWidth="52.0" text="Button" />
+      <Button fx:id="btnProduct" layoutX="394.0" layoutY="26.0" mnemonicParsing="false" onAction="#ProduitAction" opacity="0.0" prefHeight="53.0" prefWidth="52.0" text="Button" />
+      <Button fx:id="btnAnnonce" layoutX="536.0" layoutY="26.0" mnemonicParsing="false" onAction="#AnnonceAction" opacity="0.0" prefHeight="53.0" prefWidth="52.0" text="Button" />
+      <Button fx:id="btnLocation" layoutX="686.0" layoutY="24.0" mnemonicParsing="false" onAction="#LocationAction" opacity="0.0" prefHeight="47.0" prefWidth="52.0" text="Button" />
+      <Button fx:id="btnEvent" layoutX="834.0" layoutY="26.0" mnemonicParsing="false" onAction="#EvenementAction" opacity="0.0" prefHeight="43.0" prefWidth="52.0" text="Button" />
+      <Button fx:id="btnCircuit" layoutX="986.0" layoutY="16.0" mnemonicParsing="false" onAction="#CircuitAction" opacity="0.0" prefHeight="53.0" prefWidth="52.0" text="Button" />
+      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fitHeight="720.0" fitWidth="1280.0" layoutY="103.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@bike.PNG" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

@@ -68,7 +68,15 @@ public class CreerEvenementController implements Initializable {
         EventServices es=new EventServices();
         cbRegionE.setValue("<Region>");
         cbRegionE.getItems().add("Ariana");
-      cbRegionE.getItems().add("Soukra");
+      cbRegionE.getItems().add("Sidi Bouzid");
+      cbRegionE.getItems().add("Gafsa");
+      cbRegionE.getItems().add("Ben Arous");
+      cbRegionE.getItems().add("Béja");
+      cbRegionE.getItems().add("Bizerte");
+      cbRegionE.getItems().add("Sfax");
+      cbRegionE.getItems().add("Hawaria");
+      cbRegionE.getItems().add("Kirouane");
+      cbRegionE.getItems().add("Ben Guerdene");
       try {
             String req="SELECT name_C FROM circuit";
             Statement s=Connection.getInstance().getConnection().createStatement();
@@ -97,8 +105,27 @@ public class CreerEvenementController implements Initializable {
     
     @FXML
     private void ajouter(ActionEvent event) throws SQLException {
+        EventServices es=new EventServices();
+        if(tfTitreE.getText ()==null || tfDescriptionE.getText ()==null ||dpDateE.getValue ()==null || cbCircuits.getValue ()==null || cbRegionE.getValue ()==null ){
         
-        
+           System.out.println("Un ou plusieurs champs non rempli(s)!");
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Erreur");
+            alert.setHeaderText(null);
+            alert.setContentText("Champ(s) obligatoire(s) non rempli(s)!");
+
+            alert.showAndWait();
+     }
+        else if(tfTitreE.getText ().equals(es.conditionTitre().getTitre())){
+            System.out.println("Titre non disponible!");
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Erreur");
+            alert.setHeaderText(null);
+            alert.setContentText("Titre non disponible!");
+
+            alert.showAndWait();
+        }
+        else{
         Event e=new Event();
         dpDateE.setPromptText("Date de l'événement");
         dpDateE.setMaxWidth(300);
@@ -112,15 +139,14 @@ public class CreerEvenementController implements Initializable {
           e.setDescription(Description);
           e.setTitre(titre); 
           e.setName_C(cbCircuits.getValue());
-        EventServices es=new EventServices(); 
          es.AjouterEvent(e);
          System.out.println("Succés!");
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Succés!");
             alert.setHeaderText(null);
-            alert.setContentText("Vous avez créé l'événement"+titre);
+            alert.setContentText("Vous avez créé l'événement "+titre);
             alert.showAndWait();
-
+        }
     }
     @FXML
     public void back(ActionEvent event) throws Exception {

@@ -45,12 +45,13 @@
       </TableView>
       <Button layoutX="569.0" layoutY="672.0" mnemonicParsing="false" onAction="#AfficherParticipants" text="Voir participants" />
       <Label fx:id="nbParticipants" layoutX="11.0" layoutY="255.0" prefHeight="17.0" prefWidth="150.0" />
-      <Label fx:id="nbEvents" layoutX="322.0" layoutY="674.0" prefHeight="17.0" prefWidth="160.0" />
-      <Button layoutX="223.0" layoutY="21.0" mnemonicParsing="false" opacity="0.0" prefHeight="62.0" prefWidth="52.0" text="Button" />
+      <Label fx:id="nbEvents" layoutX="386.0" layoutY="676.0" prefHeight="17.0" prefWidth="160.0" />
+      <Button fx:id="btnHome" layoutX="223.0" layoutY="21.0" mnemonicParsing="false" onAction="#HomeAction" opacity="0.0" prefHeight="62.0" prefWidth="52.0" text="Button" />
       <Button layoutX="386.0" layoutY="27.0" mnemonicParsing="false" opacity="0.0" prefHeight="53.0" prefWidth="52.0" text="Button" />
       <Button layoutX="530.0" layoutY="20.0" mnemonicParsing="false" opacity="0.0" prefHeight="53.0" prefWidth="52.0" text="Button" />
       <Button layoutX="680.0" layoutY="20.0" mnemonicParsing="false" opacity="0.0" prefHeight="53.0" prefWidth="60.0" text="Button" />
       <Button layoutX="835.0" layoutY="22.0" mnemonicParsing="false" opacity="0.0" prefHeight="53.0" prefWidth="52.0" text="Button" />
       <Button layoutX="985.0" layoutY="20.0" mnemonicParsing="false" opacity="0.0" prefHeight="53.0" prefWidth="52.0" text="Button" />
+      <Button layoutX="235.0" layoutY="672.0" mnemonicParsing="false" onAction="#AnnulerParticipation" text="Annuler participation" />
    </children>
 </AnchorPane>

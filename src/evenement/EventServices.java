@@ -104,6 +104,25 @@ public class EventServices {
         }
         return e;
     }
+    public Event conditionTitre() throws SQLException{
+        Event e=new Event();
+        try {
+            String req="SELECT titre FROM event";
+            Statement s=Connection.getInstance().getConnection().createStatement();
+            ResultSet rs=s.executeQuery(req);
+            while(rs.next())
+            {
+            e.setTitre(rs.getString("titre"));
+            
+//            e.setPoint_depart(rs.getString("point_depart"));
+//            e.setPoint_arrivee(rs.getString("point_arrivee"));           
+            }
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(EventServices.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return e;
+    }
     public List<Event> afficherEvents() throws SQLException {
         List<Event> l = new ArrayList<>();
        // UserServices uu=new UserServices();
@@ -180,33 +199,12 @@ public class EventServices {
         }
         return l;
     }
-//    public List<Circuit> ComboBoxCircuits() throws SQLException {
-//        List<Circuit> l = new ArrayList<>();
-//       // UserServices uu=new UserServices();
-//       
-//        try {
-//            String req="SELECT name FROM circuit";
-//            Statement s=Connection.getInstance().getConnection().createStatement();
-//            ResultSet rs=s.executeQuery(req);
-//            while(rs.next())
-//            {
-//                
-//            Circuit c = new Circuit();
-//            c.setNom(rs.getString("name"));
-//            
-////            e.setPoint_depart(rs.getString("Point_Depart"));
-////            e.setPoint_arrivee(rs.getString("Point_Arrivee"));
-//            
-//           
-//            
-//            
-//                l.add(c);
-//            s.close();
-//            rs.close();
-//            }
-//        } catch (SQLException ex) {
-//            Logger.getLogger(EventServices.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        return l;
-//    }
+public void annulerParticipation(String titre) throws SQLException {
+
+        String req = "DELETE FROM participation WHERE titre ='"+titre+"'";
+            PreparedStatement ps3=Connection.getInstance().getConnection().prepareStatement(req);
+
+        ps3.executeUpdate();
+
+    }
 }
