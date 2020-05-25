@@ -18,13 +18,30 @@ import java.util.Map;
 
 /**
  *
- * @author Hamrouni
+ * @author Aloui Omar
  */
 public class UserService {
+    
+    public static UserService instance=null;
+    public boolean resultOK;
+    private ConnectionRequest con;
+
+    private UserService() {
+         con = new ConnectionRequest();
+    }
+
+    public static UserService getInstance() {
+        
+        if (instance == null) {
+            instance = new UserService();
+        }
+        return instance;
+    }
+
 
     public void Login(String username, String password) {
-        ConnectionRequest con = new ConnectionRequest();
-        con.setPost(false);
+//        ConnectionRequest con = new ConnectionRequest();
+        con.setPost(true);
         con.setUrl("http://127.0.0.1:8000/loginm/");
         con.addArgument("username", username);
         con.addArgument("password", password);
@@ -58,7 +75,7 @@ public class UserService {
     }
 
     public void Register(User user) {
-        ConnectionRequest con = new ConnectionRequest();
+//        ConnectionRequest con = new ConnectionRequest();
         con.setPost(false);
         con.setUrl("http://127.0.0.1:8000/registerm/");
         con.addArgument("username", user.getUsername());

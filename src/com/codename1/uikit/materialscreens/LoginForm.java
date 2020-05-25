@@ -78,9 +78,9 @@ public class LoginForm extends Form {
 //        });
         loginButton.addActionListener((e) -> {
             System.out.println("connection buuton clicked");
-            UserService us = new UserService();
+//            UserService us = new UserService();
             if(verifierChamps(login.getText(), password.getText())){
-            us.Login(login.getText(), password.getText());
+            UserService.getInstance().Login(login.getText(), password.getText());
             
             if (Vars.current_user == null) {
                 if (Dialog.show("Error", "Username ou mot de passe incorrect", "ok", null)) {

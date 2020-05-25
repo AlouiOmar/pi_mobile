@@ -109,7 +109,7 @@ public class RegisterForm extends Form {
 //        });
         registerButton.addActionListener((e) -> {
             System.out.println("connection buuton clicked");
-            UserService us = new UserService();
+//            UserService us = new UserService();
             u.setUsername(tLogin.getText());
             u.setUsernameCanonical(tLogin.getText());
             u.setNom(tNom.getText());
@@ -121,7 +121,7 @@ public class RegisterForm extends Form {
             u.setPhoto(fileNameInServer);
             System.out.println(u.toString());
 //            System.out.println("before current user "+Vars.current_user.toString());
-                            us.Register(u);
+                            UserService.getInstance().Register(u);
 //                            System.out.println(Vars.unlock_newMarker);
 //            try {
 //                //                                        System.out.println("after current user "+Vars.current_user.toString());
