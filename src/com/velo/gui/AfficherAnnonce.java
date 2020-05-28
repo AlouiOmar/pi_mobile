@@ -235,67 +235,7 @@ public class AfficherAnnonce extends SideMenuBaseForm{
 
 
 
-  /*  public AfficherAnnonce(Resources res){
-        
-        affichertAnnonceForm=new Form("Afficher Annonce",BoxLayout.yCenter());
-        affichertAnnonceForm.getToolbar().addCommandToRightBar("Retour", null,e -> new AfficherListeAnnonces(res).show());
-        String image=a.getPhoto();
-        ImageViewer imgv = new ImageViewer();
-        try {
-                    palceHolder = EncodedImage.create("/giphy.gif");
-                } catch (IOException ex) {
-
-                }
-                if(image!=null){
-                URLImage urlImage = URLImage.createToStorage(palceHolder, image, "http://localhost/pi/web/uploads/annonce/"+image);
-                imgv.setImage(urlImage);
-
-                }
-        Label lTitre=new Label("Titre: "+a.getTitre());
-        Label lCategorie=new Label("Catégorie: "+a.getCategorie());
-        Label lType=new Label("Type: "+a.getType());
-        Label lDate=new Label("Date: "+a.getDate());
-        Label lDatep=new Label("Publiée: "+a.getDatep());
-        SpanLabel lDescription=new SpanLabel("Description: "+a.getDescription());
-        Button bModif=new Button("Modifier");
-        Button bSupp=new Button("Supprimer");
-        Container cb=new Container(BoxLayout.x());
-        cb.addAll(bModif,bSupp);
-        bModif.addActionListener(e->{
-            ModifierAnnonce modifierAnnonce=new ModifierAnnonce(res,a);
-//            Form modifierAnnonceForm=modifierAnnonce.getModifierAnnonceForm();
-            modifierAnnonce.show();
-            
-//        Form mod=modifier(a);
-//        mod.show();
-        });
-        bSupp.addActionListener(e1->{
-            
-                if(Dialog.show("voulez vous supprimer cette annonce", "", "Supprimer", "Annuler")){
-//                db.execute("delete from annonce where id="+a.getId()+"");
-                    AnnonceService as=new AnnonceService();
-                as.SupprimerAnnonce(a.getIda());
-                System.out.println("Annonce supprimée avec succès !");
-                AfficherListeAnnonces listeAnnonces=new AfficherListeAnnonces(res);
-//                 Form listeAnnoncesForm = listeAnnonces.getListeAnnoncesForm();
-                 listeAnnonces.show();
-                }
-            
-                 
-        });
-        affichertAnnonceForm.addAll(imgv,lTitre,lCategorie,lType,lDate,lDatep,lDescription,cb);
-
-    }
-
-    public Form getAffichertAnnonceForm() {
-        return affichertAnnonceForm;
-    }
-
-    public void setAffichertAnnonceForm(Form affichertAnnonceForm) {
-        this.affichertAnnonceForm = affichertAnnonceForm;
-    }
-    
-    */
+ 
      @Override
     protected void showOtherForm(Resources res) {
         new StatsForm(res).show();
