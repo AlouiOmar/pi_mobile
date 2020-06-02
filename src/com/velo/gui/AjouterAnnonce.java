@@ -9,6 +9,7 @@ import com.codename1.capture.Capture;
 import com.codename1.charts.ChartComponent;
 import com.codename1.charts.util.ColorUtil;
 import com.codename1.components.InfiniteProgress;
+import com.codename1.components.OnOffSwitch;
 import com.codename1.io.MultipartRequest;
 import com.codename1.io.NetworkManager;
 import com.codename1.l10n.ParseException;
@@ -33,8 +34,8 @@ import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.spinner.Picker;
 import com.codename1.ui.util.Resources;
-import com.codename1.uikit.materialscreens.SideMenuBaseForm;
-import com.codename1.uikit.materialscreens.StatsForm;
+import com.velo.gui.ProfileForm;
+import com.velo.gui.SideMenuBaseForm;
 import com.velo.services.AnnonceService;
 import com.velo.entities.Annonce;
 import com.velo.util.Vars;
@@ -124,6 +125,10 @@ public class AjouterAnnonce extends SideMenuBaseForm{
         Label lGouvernorat=new Label("Gouvernorat");
         lGouvernorat.getAllStyles().setFont(Font.createSystemFont(Font.FACE_SYSTEM, Font.STYLE_BOLD, Font.SIZE_SMALL));
         PickerComponent tGouvernorat = PickerComponent.createStrings("Ariana","Béja","Ben Arous","Bizerte","Gabès","Gafsa","Jendouba","Kairouan","Kasserine","Kébili","Le Kef","Mahdia","La Manouba","Médenine","Monastir","Nabeul","Sfax","Sidi Bouzid","Siliana","Sousse","Tataouine","Tozeur","Tunis","Zaghouan").label("Gouvernorat");
+        Label lActive=new Label("Active");
+        OnOffSwitch tActive=new OnOffSwitch();
+//        tActive.setOff("non active");
+//        tActive.setOn("active");
         Label lPrix=new Label("Prix");
         lPrix.getAllStyles().setFont(Font.createSystemFont(Font.FACE_SYSTEM, Font.STYLE_BOLD, Font.SIZE_SMALL));
         TextField tPrix=new TextField("","Prix");
@@ -233,8 +238,9 @@ public class AjouterAnnonce extends SideMenuBaseForm{
         System.out.println("date md formated : "+datesmd);
         PickerComponent tDate = PickerComponent.createDate(datemd).label("Date");
         Button bAjouter=new Button("Ajouter annonce");
+        FontImage.setMaterialIcon(bAjouter, FontImage.MATERIAL_ADD,5);
         Container cont=new Container(BoxLayout.y());
-        cont.addAll(lTitre,tTitre,lCategorie,tCategorie,lGouvernorat,tGouvernorat,lType,tType,lDate,tDate,lPrix,tPrix,lDescriprion,tDescriprion,lPhoto,upload,lTypevelo,tTypevelo,lCouleur,tCouleur,bAjouter,cb);
+        cont.addAll(lTitre,tTitre,lCategorie,tCategorie,lGouvernorat,tGouvernorat,lType,tType,lDate,tDate,lActive,tActive,lPrix,tPrix,lDescriprion,tDescriprion,lPhoto,upload,lTypevelo,tTypevelo,lCouleur,tCouleur,bAjouter,cb);
         add(BorderLayout.CENTER,cont);
         bAjouter.addActionListener(e1->{
             
@@ -245,7 +251,7 @@ public class AjouterAnnonce extends SideMenuBaseForm{
                 date5=(Date) tDate.getPicker().getValue();
                 String dd=simpleDateFormat.format(date5);
                 System.out.println(dd);
-                AnnonceService as=new AnnonceService();
+//                AnnonceService as=new AnnonceService();
                 
                 a.setTitre(tTitre.getText());
                 a.setCategorie(tCategorie.getPicker().getSelectedString());
@@ -262,11 +268,18 @@ public class AjouterAnnonce extends SideMenuBaseForm{
                 }
 //                a.setPhoto("9860939036c45b557702b55617fd103f.jpeg");
                 a.setIdu(Vars.current_user.getId());
-                
+                if(tActive.isValue())
+                {
+                    a.setActive(true);
+                }
+                else 
+                {
+                    a.setActive(false);
+                }
                 System.out.println(a);
                 if(verifierChamps(a, tPrix.getText())){
                 a.setPrix((int) Integer.parseInt(tPrix.getText()));
-                as.AjouterAnnonce(a);
+                AnnonceService.getInstance().AjouterAnnonce(a);
                 System.out.println("Annonce ajoutée avec succès");
                 Vars.current_choice=1;
                 AfficherListeAnnonces listeAnnonces=new AfficherListeAnnonces(res);
@@ -290,7 +303,7 @@ public class AjouterAnnonce extends SideMenuBaseForm{
 
 @Override
     protected void showOtherForm(Resources res) {
-        new StatsForm(res).show();
+        new ProfileForm(res).show();
     }
     
     public boolean verifierChamps(Annonce a,String prix){

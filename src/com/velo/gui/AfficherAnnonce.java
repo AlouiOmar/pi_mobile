@@ -10,6 +10,8 @@ import com.codename1.charts.util.ColorUtil;
 import com.codename1.components.ImageViewer;
 import com.codename1.components.InteractionDialog;
 import com.codename1.components.SpanLabel;
+import com.codename1.l10n.Format;
+import com.codename1.l10n.SimpleDateFormat;
 import com.codename1.ui.Button;
 import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
@@ -32,8 +34,8 @@ import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.plaf.Style;
 import com.codename1.ui.spinner.Picker;
 import com.codename1.ui.util.Resources;
-import com.codename1.uikit.materialscreens.SideMenuBaseForm;
-import com.codename1.uikit.materialscreens.StatsForm;
+import com.velo.gui.ProfileForm;
+import com.velo.gui.SideMenuBaseForm;
 import com.velo.entities.Annonce;
 import com.velo.entities.Stat;
 import com.velo.services.AnnonceService;
@@ -113,10 +115,15 @@ public class AfficherAnnonce extends SideMenuBaseForm{
 
                 }
         Label lTitre=new Label("Titre: "+a.getTitre());
+        Label lGouvernorat=new Label("Gouvernorat: "+a.getGouvernorat());
         Label lCategorie=new Label("Catégorie: "+a.getCategorie());
         Label lType=new Label("Type: "+a.getType());
-        Label lDate=new Label("Date: "+a.getDate());
-        Label lDatep=new Label("Publiée: "+a.getDatep());
+        Format dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String ress = dateFormat.format(a.getDatep());
+        String ress1 = dateFormat.format(a.getDate());
+        Label lDate=new Label("Date: "+ress1);
+        Label lDatep=new Label("Publiée: "+ress);
+        Label lPrix=new Label("Prix: "+a.getPrix());
         SpanLabel lDescription=new SpanLabel("Description: "+a.getDescription());
         Button bModif=new Button("Modifier");
         Button bSupp=new Button("Supprimer");
@@ -138,8 +145,8 @@ public class AfficherAnnonce extends SideMenuBaseForm{
             
                 if(Dialog.show("voulez vous supprimer cette annonce", "", "Supprimer", "Annuler")){
 //                db.execute("delete from annonce where id="+a.getId()+"");
-                    AnnonceService as=new AnnonceService();
-                as.SupprimerAnnonce(a.getIda());
+//                    AnnonceService as=new AnnonceService();
+                AnnonceService.getInstance().SupprimerAnnonce(a.getIda());
                 System.out.println("Annonce supprimée avec succès !");
                 AfficherListeAnnonces listeAnnonces=new AfficherListeAnnonces(res);
 //                 Form listeAnnoncesForm = listeAnnonces.getListeAnnoncesForm();
@@ -174,8 +181,8 @@ public class AfficherAnnonce extends SideMenuBaseForm{
         
         signaler.addActionListener((ee) -> {
             System.out.println("id annonce: "+a.getIda()+" cause: "+signallPicker.getPicker().getSelectedString());
-            AnnonceService as=new AnnonceService();
-            as.SignalAnnonce(a.getIda(), signallPicker.getPicker().getSelectedString());
+//            AnnonceService as=new AnnonceService();
+            AnnonceService.getInstance().SignalAnnonce(a.getIda(), signallPicker.getPicker().getSelectedString());
             dlg.dispose();
             dlg1.show(pre.getHeight()*6, pre.getHeight()*6, pre.getWidth()/2, pre.getWidth()/2);
         });
@@ -204,11 +211,17 @@ public class AfficherAnnonce extends SideMenuBaseForm{
 //            signalPicker.getPicker().released(); 
         });
         Container cont=new Container(BoxLayout.y());
-        cont.addAll(imgv,cont6,lCategorie,lType,lDate,lDatep,lDescription);
+        cont.addAll(imgv,cont6,lGouvernorat,lCategorie,lType,lDate,lDatep,lPrix,lDescription);
+        if(a.getCategorie().equals("Vélo")){
+            Label lTypeVelo=new Label("Type de vélo: "+a.getTypevelo());
+            Label lCouleur=new Label("Couleur: "+a.getCouleur());
+            cont.add(lTypeVelo);
+            cont.add(lCouleur);
+        }
         if(Vars.current_choice == 4){
             System.out.println(Vars.current_choice );
-            AnnonceService as=new AnnonceService();
-            ArrayList<Stat> listc=as.getCause(a.getIda());
+//            AnnonceService as=new AnnonceService();
+            ArrayList<Stat> listc=AnnonceService.getInstance().getCause(a.getIda());
             Container cont8=new Container(BoxLayout.y());
             cont8.add(new Label("Cause du signalement: "));
             for(int i=0;i<listc.size();i++){
@@ -238,6 +251,6 @@ public class AfficherAnnonce extends SideMenuBaseForm{
  
      @Override
     protected void showOtherForm(Resources res) {
-        new StatsForm(res).show();
+        new ProfileForm(res).show();
     }
 }
