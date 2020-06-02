@@ -10,6 +10,9 @@ import com.codename1.components.ImageViewer;
 import com.codename1.components.InteractionDialog;
 import com.codename1.db.Cursor;
 import com.codename1.db.Row;
+import com.codename1.l10n.Format;
+import com.codename1.l10n.ParseException;
+import com.codename1.l10n.SimpleDateFormat;
 import com.codename1.ui.Button;
 import com.codename1.ui.Container;
 import com.codename1.ui.EncodedImage;
@@ -31,12 +34,13 @@ import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
-import com.codename1.uikit.materialscreens.SideMenuBaseForm;
-import com.codename1.uikit.materialscreens.StatsForm;
+import com.velo.gui.ProfileForm;
+import com.velo.gui.SideMenuBaseForm;
 import com.velo.entities.Annonce;
 import com.velo.services.AnnonceService;
 import com.velo.util.Vars;
 import java.io.IOException;
+import java.util.Date;
 import javafx.scene.paint.Color;
 
 /**
@@ -165,25 +169,31 @@ private EncodedImage palceHolder;
         
 
        //#####begin
-         AnnonceService as = new AnnonceService();
-        if (!as.getAnnonces().isEmpty()) {
+//         AnnonceService as = new AnnonceService();
+        if (!AnnonceService.getInstance().getAnnonces().isEmpty()) {
             Container con3=new Container(BoxLayout.y());
-         for (Annonce a : as.getAnnonces()) {
+         for (Annonce a : AnnonceService.getInstance().getAnnonces()) {
                 
                 int id=a.getIda();
                 String titre=a.getTitre();
                 String type=a.getType();
+                String categorie=a.getCategorie();
                 String date=a.getDatep().toString();
                 String image=a.getPhoto();
                 String prix=String.valueOf(a.getPrix());
                 Label lTitre=new Label("Titre: "+titre);
+                Label lCategorie=new Label("Catégorie: "+categorie);
                 Label lType=new Label("Type: "+type);
-                Label lDate=new Label("Date: "+date);
+                Format dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                String ress = dateFormat.format(a.getDatep());
+//                System.out.println("Date = " + ress);
+                Label lDate=new Label("Publiée le : "+ress);
                 Label lPrix=new Label("Prix: "+prix);
                 Button bAfficher=new Button("Afficher");
                 bAfficher.addActionListener(e->{
 //                    Annonce a1=new Annonce();
                     Vars.current_annonce=a;
+                    System.out.println("testtt");
                   AfficherAnnonce afficherAnnonce=new AfficherAnnonce(res,a);
 //                  Form afficherAnnonceForm=afficherAnnonce.getAffichertAnnonceForm();
                   afficherAnnonce.show();
@@ -212,7 +222,7 @@ private EncodedImage palceHolder;
                 if(image==null){
 //                    imgv=new ImageViewer(res.getImage("noimagefound.jpg").scaled(120, 100));
                 }
-                con1.addAll(lTitre,lType,lDate,lPrix);
+                con1.addAll(lTitre,lCategorie,lType,lDate,lPrix);
                 con.addAll(imgv,con1);
                 
                 con3.addAll(con,bAfficher);
@@ -223,7 +233,9 @@ private EncodedImage palceHolder;
 
         }
         else {
-            add(new Label("Aucune annonce à afficher"));
+            Container cont=new Container(BoxLayout.y());
+            cont.add(BoxLayout.encloseXCenter(new Label("Aucune annonce à afficher")));
+            add(BorderLayout.CENTER,cont);
 
         } 
        //#####end
@@ -248,7 +260,7 @@ private EncodedImage palceHolder;
     
  @Override
     protected void showOtherForm(Resources res) {
-        new StatsForm(res).show();
+        new ProfileForm(res).show();
     }
    
 }
