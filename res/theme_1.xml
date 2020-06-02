@@ -8,6 +8,7 @@
     <image name="duke.png" type="multi"  />
     <image name="gradient-overlay.png"  />
     <image name="login-background.jpg"  />
+    <image name="logo.png"  />
     <image name="notes.png" type="multi"  />
     <image name="pieces.jpg"  />
     <image name="register.jpg"  />
@@ -315,4 +316,8 @@
     <image name="user-picture.jpg"  />
     <image name="user.jpg"  />
     <image name="velo.jpg"  />
+    <image name="velo.png"  />
+    <image name="velo1.png"  />
+    <image name="velo2.png"  />
+    <image name="velo3.png"  />
 </resource>

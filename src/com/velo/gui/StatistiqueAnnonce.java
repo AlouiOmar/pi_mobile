@@ -27,8 +27,8 @@ import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.util.Resources;
-import com.codename1.uikit.materialscreens.SideMenuBaseForm;
-import com.codename1.uikit.materialscreens.StatsForm;
+import com.velo.gui.ProfileForm;
+import com.velo.gui.SideMenuBaseForm;
 import com.velo.entities.Annonce;
 import java.util.ArrayList;
 import com.velo.entities.Stat;
@@ -86,11 +86,11 @@ public class StatistiqueAnnonce extends SideMenuBaseForm{
         
 
        //#####begin
-        AnnonceService as = new AnnonceService();
-        ArrayList<Stat> listStat1 =as.getStatGouv();
-        ArrayList<Stat> listStat2 =as.getStatType();
-        ArrayList<Stat> listStat3 =as.getStatSignCat();
-        ArrayList<Stat> listStat4 =as.getStatSignCause();
+//        AnnonceService as = new AnnonceService();
+        ArrayList<Stat> listStat1 =AnnonceService.getInstance().getStatGouv();
+        ArrayList<Stat> listStat2 =AnnonceService.getInstance().getStatType();
+        ArrayList<Stat> listStat3 =AnnonceService.getInstance().getStatSignCat();
+        ArrayList<Stat> listStat4 =AnnonceService.getInstance().getStatSignCause();
         ChartComponent c1=createPieChartForm(listStat1);
         ChartComponent c2=createPieChartForm(listStat2);
         ChartComponent c3=createPieChartForm(listStat3);
@@ -217,7 +217,7 @@ public class StatistiqueAnnonce extends SideMenuBaseForm{
     
     @Override
     protected void showOtherForm(Resources res) {
-        new StatsForm(res).show();
+        new ProfileForm(res).show();
     }
    
 

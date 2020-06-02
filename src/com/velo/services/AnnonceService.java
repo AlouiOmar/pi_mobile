@@ -27,7 +27,21 @@ import java.util.Map;
  * @author Aloui Omar
  */
 public class AnnonceService {
-    
+    public static AnnonceService instance=null;
+    public boolean resultOK;
+    private ConnectionRequest con;
+
+    private AnnonceService() {
+         con = new ConnectionRequest();
+    }
+
+    public static AnnonceService getInstance() {
+        
+        if (instance == null) {
+            instance = new AnnonceService();
+        }
+        return instance;
+    }
     
     public ArrayList<Annonce> getListAnnonces(String json) {
 
@@ -40,7 +54,7 @@ public class AnnonceService {
             Map<String, Object> annonces = j.parseJSON(new CharArrayReader(json.toCharArray()));
 
             List<Map<String, Object>> list = (List<Map<String, Object>>) annonces.get("root");
-
+            System.out.println(json);
             for (Map<String, Object> obj : list) {
                 Annonce a = new Annonce();
 
@@ -87,45 +101,56 @@ public class AnnonceService {
     ArrayList<Annonce> listAnnonces = new ArrayList<>();
     ArrayList<Stat> listStat = new ArrayList<>();
      public ArrayList<Annonce> getAnnonces() {
-        ConnectionRequest con = new ConnectionRequest();
+         con.removeAllArguments();
+         con.setPost(false);
+//                  con = new ConnectionRequest();
+
+//        ConnectionRequest con = new ConnectionRequest();
+        con.removeAllArguments();
         if (Vars.current_choice == 1) {
-            con.setUrl("http://127.0.0.1:8000/annonce/listm");
+            con.setUrl(Vars.base_url+"/annonce/listm");
 //            con.addArgument("user", String.valueOf(Vars.current_user.getId()));
         }
         else  if (Vars.current_choice == 2) {
-                con.setUrl("http://127.0.0.1:8000/annonce/mesannoncem/");
+                con.setUrl(Vars.base_url+"/annonce/mesannoncem/");
                 con.addArgument("user", String.valueOf(Vars.current_user.getId()));
             } 
         else if (Vars.current_choice == 3) {
-                    con.setUrl("http://127.0.0.1:8000/annonce/recherche/");
+                    con.setUrl(Vars.base_url+"/annonce/recherche/");
                     con.addArgument("recherche", String.valueOf(Vars.current_search));
                 } 
         else  if (Vars.current_choice == 4) {
-                        con.setUrl("http://127.0.0.1:8000/annonce/listsignm");
+                        con.setUrl(Vars.base_url+"/annonce/listsignm");
 //                        con.addArgument("categorie", Vars.current_type);
 //                        con.addArgument("id", String.valueOf(Vars.current_user.getId()));
 
                     } 
         else  if (Vars.current_choice == 5) {
-                        con.setUrl("http://127.0.0.1:8000/annonce/listcat/");
+                        con.setUrl(Vars.base_url+"/annonce/listcat/");
                         con.addArgument("categorie", Vars.current_type);
 //                        con.addArgument("id", String.valueOf(Vars.current_user.getId()));
 
                     } 
         else  if (Vars.current_choice == 6) {
-                        con.setUrl("http://127.0.0.1:8000/annonce/listprix/");
+                        con.setUrl(Vars.base_url+"/annonce/listprix/");
                         con.addArgument("choix", Vars.current_type);
 //                        con.addArgument("id", String.valueOf(Vars.current_user.getId()));
 
                     }
         else  if (Vars.current_choice == 7) {
-                        con.setUrl("http://127.0.0.1:8000/annonce/listdate");
+                        con.setUrl(Vars.base_url+"/annonce/listdate");
+//                        con.addArgument("choix", Vars.current_type);
+//                        con.addArgument("id", String.valueOf(Vars.current_user.getId()));
+
+                    }
+        else  if (Vars.current_choice == 8) {
+                        con.setUrl(Vars.base_url+"/annonce/ttlistm");
 //                        con.addArgument("choix", Vars.current_type);
 //                        con.addArgument("id", String.valueOf(Vars.current_user.getId()));
 
                     }
 //        else {
-//                        con.setUrl("http://127.0.0.1:8000/Deal/Recherche_Ville_Dealm/");
+//                        con.setUrl(Vars.base_url+"/Deal/Recherche_Ville_Dealm/");
 //                        con.addArgument("ville", Vars.current_type);
 ////                        con.addArgument("id", String.valueOf(Vars.current_user.getId()));
 //                    }
@@ -137,6 +162,7 @@ public class AnnonceService {
             public void actionPerformed(NetworkEvent evt) {
                 AnnonceService ds = new AnnonceService();
                 listAnnonces = ds.getListAnnonces(new String(con.getResponseData()));
+                con.removeResponseListener(this);
             }
         });
         NetworkManager.getInstance().addToQueueAndWait(con);
@@ -144,9 +170,10 @@ public class AnnonceService {
     }
      
       public void AjouterAnnonce(Annonce a) {
-        ConnectionRequest con = new ConnectionRequest();
-        con.setPost(false);
-        con.setUrl("http://127.0.0.1:8000/annonce/ajoutm/");
+//        ConnectionRequest con = new ConnectionRequest();
+        con.removeAllArguments();
+        con.setPost(true);
+        con.setUrl(Vars.base_url+"/annonce/ajoutm/");
 //        con.addArgument("ens", String.valueOf(x));
         con.addArgument("categorie", a.getCategorie());
         con.addArgument("titre", String.valueOf(a.getTitre()));
@@ -163,36 +190,58 @@ public class AnnonceService {
         }
         con.addArgument("gouvernorat", String.valueOf(a.getGouvernorat()));
         con.addArgument("idu", String.valueOf(a.getIdu()));
-
+        con.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                System.out.println("http response: "+con.getResponseCode());
+                con.removeResponseListener(this);
+            }
+        });
         NetworkManager.getInstance().addToQueueAndWait(con);
 
     }
       
     public void SupprimerAnnonce(int ida) {
-        ConnectionRequest con = new ConnectionRequest();
-        con.setPost(false);
-        con.setUrl("http://127.0.0.1:8000/annonce/supprimerm/");
+//        ConnectionRequest con = new ConnectionRequest();
+        con.removeAllArguments();
+        con.setPost(true);
+        con.setUrl(Vars.base_url+"/annonce/supprimerm/");
         con.addArgument("ida", String.valueOf(ida));
-
+        con.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                System.out.println("http response: "+con.getResponseCode());
+                con.removeResponseListener(this);
+            }
+        });
         NetworkManager.getInstance().addToQueueAndWait(con);
 
     }
     
     public void SignalAnnonce(int id,String cause) {
-        ConnectionRequest con = new ConnectionRequest();
-        con.setPost(false);
-        con.setUrl("http://127.0.0.1:8000/annonce/reportm/");
+//        ConnectionRequest con = new ConnectionRequest();
+                con.removeAllArguments();
+
+        con.setPost(true);
+        con.setUrl(Vars.base_url+"/annonce/reportm/");
         con.addArgument("id", String.valueOf(id));
         con.addArgument("cause", String.valueOf(cause));
-
+        con.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                System.out.println("http response: "+con.getResponseCode());
+                con.removeResponseListener(this);
+            }
+        });
         NetworkManager.getInstance().addToQueueAndWait(con);
 
     }
     
     public void ModifierAnnonce(Annonce a) {
-        ConnectionRequest con = new ConnectionRequest();
-        con.setPost(false);
-        con.setUrl("http://127.0.0.1:8000/annonce/modifierm/");
+//        ConnectionRequest con = new ConnectionRequest();
+        con.removeAllArguments();
+        con.setPost(true);
+        con.setUrl(Vars.base_url+"/annonce/modifierm/");
 //        con.addArgument("ens", String.valueOf(x));
         con.addArgument("ida", String.valueOf(a.getIda()));
         con.addArgument("categorie", a.getCategorie());
@@ -210,21 +259,28 @@ public class AnnonceService {
         }
         con.addArgument("gouvernorat", String.valueOf(a.getGouvernorat()));
         con.addArgument("idu", String.valueOf(a.getIdu()));
-
+        con.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                System.out.println("http response: "+con.getResponseCode());
+                con.removeResponseListener(this);
+            }
+        });
         NetworkManager.getInstance().addToQueueAndWait(con);
 
     }
     
 //     ArrayList<Annonce> statGouv = new ArrayList<>();
      public ArrayList<Stat> getStatGouv() {
-        ConnectionRequest con = new ConnectionRequest();
-            con.setUrl("http://127.0.0.1:8000/annonce/statgm");
-
+//        ConnectionRequest con = new ConnectionRequest();
+        con.removeAllArguments();
+        con.setUrl(Vars.base_url+"/annonce/statgm");
         con.addResponseListener(new ActionListener<NetworkEvent>() {
             @Override
             public void actionPerformed(NetworkEvent evt) {
                 AnnonceService ds = new AnnonceService();
                 listStat = ds.getListStatGouv(new String(con.getResponseData()));
+                con.removeResponseListener(this);
             }
         });
         NetworkManager.getInstance().addToQueueAndWait(con);
@@ -232,28 +288,32 @@ public class AnnonceService {
     }
      
     public ArrayList<Stat> getStatType() {
-        ConnectionRequest con = new ConnectionRequest();
-            con.setUrl("http://127.0.0.1:8000/annonce/statty");
-
+//        ConnectionRequest con = new ConnectionRequest();
+        con.removeAllArguments();
+        con.setPost(false);
+        con.setUrl(Vars.base_url+"/annonce/statty");
         con.addResponseListener(new ActionListener<NetworkEvent>() {
             @Override
             public void actionPerformed(NetworkEvent evt) {
                 AnnonceService ds = new AnnonceService();
                 listStat = ds.getListStatType(new String(con.getResponseData()));
+                con.removeResponseListener(this);
             }
         });
         NetworkManager.getInstance().addToQueueAndWait(con);
         return listStat;
     }
      public ArrayList<Stat> getStatSignCat() {
-        ConnectionRequest con = new ConnectionRequest();
-            con.setUrl("http://127.0.0.1:8000/annonce/statsc");
-
+//        ConnectionRequest con = new ConnectionRequest();
+        con.removeAllArguments();
+        con.setPost(false);
+        con.setUrl(Vars.base_url+"/annonce/statsc");
         con.addResponseListener(new ActionListener<NetworkEvent>() {
             @Override
             public void actionPerformed(NetworkEvent evt) {
                 AnnonceService ds = new AnnonceService();
                 listStat = ds.getListStatSignCat(new String(con.getResponseData()));
+                con.removeResponseListener(this);
             }
         });
         NetworkManager.getInstance().addToQueueAndWait(con);
@@ -261,14 +321,16 @@ public class AnnonceService {
     }
      
     public ArrayList<Stat> getStatSignCause() {
-        ConnectionRequest con = new ConnectionRequest();
-            con.setUrl("http://127.0.0.1:8000/annonce/statscau");
-
+//        ConnectionRequest con = new ConnectionRequest();
+        con.removeAllArguments();    
+        con.setPost(false);
+        con.setUrl(Vars.base_url+"/annonce/statscau");
         con.addResponseListener(new ActionListener<NetworkEvent>() {
             @Override
             public void actionPerformed(NetworkEvent evt) {
                 AnnonceService ds = new AnnonceService();
                 listStat = ds.getListStatSignCause(new String(con.getResponseData()));
+                con.removeResponseListener(this);
             }
         });
         NetworkManager.getInstance().addToQueueAndWait(con);
@@ -386,14 +448,17 @@ public class AnnonceService {
     }
     
     public ArrayList<Stat> getCause(int id) {
-        ConnectionRequest con = new ConnectionRequest();
-            con.setUrl("http://127.0.0.1:8000/annonce/cause/");
-            con.addArgument("id",Integer.toString(id));
+//        ConnectionRequest con = new ConnectionRequest();
+        con.removeAllArguments();
+        con.setPost(false);
+        con.setUrl(Vars.base_url+"/annonce/cause/");
+        con.addArgument("id",Integer.toString(id));
         con.addResponseListener(new ActionListener<NetworkEvent>() {
             @Override
             public void actionPerformed(NetworkEvent evt) {
                 AnnonceService ds = new AnnonceService();
                 listStat = ds.getSignCause(new String(con.getResponseData()));
+                con.removeResponseListener(this);
             }
         });
         NetworkManager.getInstance().addToQueueAndWait(con);

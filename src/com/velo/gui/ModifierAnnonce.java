@@ -9,6 +9,7 @@ import com.codename1.capture.Capture;
 import com.codename1.charts.ChartComponent;
 import com.codename1.charts.util.ColorUtil;
 import com.codename1.components.InfiniteProgress;
+import com.codename1.components.OnOffSwitch;
 import com.codename1.io.MultipartRequest;
 import com.codename1.io.NetworkManager;
 import com.codename1.l10n.ParseException;
@@ -33,8 +34,8 @@ import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.spinner.Picker;
 import com.codename1.ui.util.Resources;
-import com.codename1.uikit.materialscreens.SideMenuBaseForm;
-import com.codename1.uikit.materialscreens.StatsForm;
+import com.velo.gui.ProfileForm;
+import com.velo.gui.SideMenuBaseForm;
 import com.velo.entities.Annonce;
 import com.velo.services.AnnonceService;
 import com.velo.util.Vars;
@@ -107,10 +108,16 @@ public class ModifierAnnonce extends SideMenuBaseForm{
         lCategorie.getAllStyles().setFont(Font.createSystemFont(Font.FACE_SYSTEM, Font.STYLE_BOLD, Font.SIZE_SMALL));
         PickerComponent tCategorie = PickerComponent.createStrings("Vélo","Pièce de rechange","Accessoire").label("Catégorie");
         tCategorie.getPicker().setSelectedString(a.getCategorie());
+        
         Label lGouvernorat=new Label("Gouvernorat");
         lGouvernorat.getAllStyles().setFont(Font.createSystemFont(Font.FACE_SYSTEM, Font.STYLE_BOLD, Font.SIZE_SMALL));
         PickerComponent tGouvernorat = PickerComponent.createStrings("Ariana","Béja","Ben Arous","Bizerte","Gabès","Gafsa","Jendouba","Kairouan","Kasserine","Kébili","Le Kef","Mahdia","La Manouba","Médenine","Monastir","Nabeul","Sfax","Sidi Bouzid","Siliana","Sousse","Tataouine","Tozeur","Tunis","Zaghouan").label("Gouvernorat");
         tGouvernorat.getPicker().setSelectedString(a.getGouvernorat());
+        Label lActive=new Label("Active");
+        OnOffSwitch tActive=new OnOffSwitch();
+//        tActive.setOff("Off");
+//        tActive.setOn("On");
+        tActive.setValue(a.isActive());
         Label lPrix=new Label("Prix");
         lPrix.getAllStyles().setFont(Font.createSystemFont(Font.FACE_SYSTEM, Font.STYLE_BOLD, Font.SIZE_SMALL));
         TextField tPrix=new TextField(String.valueOf((int) a.getPrix()),"Prix");
@@ -125,6 +132,9 @@ public class ModifierAnnonce extends SideMenuBaseForm{
         tDescriprion.getAllStyles().setFont(Font.createSystemFont(Font.FACE_SYSTEM, Font.STYLE_PLAIN, Font.SIZE_MEDIUM));
         Label lPhoto=new Label("Photo");
         lPhoto.getAllStyles().setFont(Font.createSystemFont(Font.FACE_SYSTEM, Font.STYLE_BOLD, Font.SIZE_SMALL));
+        
+        
+        
         Button upload = new Button("upload");
         upload.addActionListener(new ActionListener() {
             @Override
@@ -172,9 +182,20 @@ public class ModifierAnnonce extends SideMenuBaseForm{
         Label lTypevelo=new Label("Type Vélo");
         lTypevelo.getAllStyles().setFont(Font.createSystemFont(Font.FACE_SYSTEM, Font.STYLE_BOLD, Font.SIZE_SMALL));
         PickerComponent tTypevelo = PickerComponent.createStrings("Tout chemin","Hollandais","Tout terrain","Enfant","Course","Pliant","Couché","Remorques").label("Type vélo");
+//        tTypevelo.getPicker().setEnabled(false);
         Label lCouleur=new Label("Couleur");
         lCouleur.getAllStyles().setFont(Font.createSystemFont(Font.FACE_SYSTEM, Font.STYLE_BOLD, Font.SIZE_SMALL));
         TextField tCouleur=new TextField("","Couleur");
+        if (a.getCategorie().equals("Pièce de rechange") || a.getCategorie().equals("Accessoire")) {
+                    // Selected same value
+                    tCouleur.setText("");
+//                    tTypevelo.setText("");
+                    tCouleur.setEnabled(false);
+                    tCouleur.setEditable(false);
+                    tTypevelo.getPicker().setEnabled(false);
+                    
+                    
+                }
         tCouleur.getAllStyles().setFgColor(ColorUtil.BLACK);
         tCouleur.getAllStyles().setFont(Font.createSystemFont(Font.FACE_SYSTEM, Font.STYLE_PLAIN, Font.SIZE_MEDIUM));
         if(tCategorie.getPicker().getSelectedString().equals("Vélo")){
@@ -182,6 +203,7 @@ public class ModifierAnnonce extends SideMenuBaseForm{
             tTypevelo.getPicker().setSelectedString(a.getTypevelo());
         }
 
+        
         tCategorie.getPicker().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -190,14 +212,14 @@ public class ModifierAnnonce extends SideMenuBaseForm{
                     //Cancel pressed
                     tCouleur.setEditable(true);
                     tCouleur.setEnabled(true);
-                    tTypevelo.setEnabled(true);
+                    tTypevelo.getPicker().setEnabled(true);
                 } else if (selectedValue.equals("Pièce de rechange") || selectedValue.equals("Accessoire")) {
                     // Selected same value
                     tCouleur.setText("");
 //                    tTypevelo.setText("");
                     tCouleur.setEnabled(false);
                     tCouleur.setEditable(false);
-                    tTypevelo.setEnabled(false);
+                    tTypevelo.getPicker().setEnabled(false);
                 }else {
                     // Selected new value
 //                    doSomething();
@@ -221,8 +243,9 @@ public class ModifierAnnonce extends SideMenuBaseForm{
         System.out.println("date md formated : "+datesmd);
         PickerComponent tDate = PickerComponent.createDate(datemd).label("Date");
         Button bModifier=new Button("Modifier annonce");
+        FontImage.setMaterialIcon(bModifier, FontImage.MATERIAL_UPDATE,5);
         Container cont=new Container(BoxLayout.y());
-        cont.addAll(lTitre,tTitre,lCategorie,tCategorie,lGouvernorat,tGouvernorat,lType,tType,lDate,tDate,lPrix,tPrix,lDescriprion,tDescriprion,lPhoto,upload,lTypevelo,tTypevelo,lCouleur,tCouleur,bModifier,cb);
+        cont.addAll(lTitre,tTitre,lCategorie,tCategorie,lGouvernorat,tGouvernorat,lType,tType,lDate,tDate,lActive,tActive,lPrix,tPrix,lDescriprion,tDescriprion,lPhoto,upload,lTypevelo,tTypevelo,lCouleur,tCouleur,bModifier,cb);
         add(BorderLayout.CENTER,cont);
         bModifier.addActionListener(e1->{
             
@@ -233,7 +256,7 @@ public class ModifierAnnonce extends SideMenuBaseForm{
                 date5=(Date) tDate.getPicker().getValue();
                 String dd=simpleDateFormat.format(date5);
                 System.out.println(dd);
-                AnnonceService as=new AnnonceService();
+//                AnnonceService as=new AnnonceService();
                 
                 a.setTitre(tTitre.getText());
                 a.setCategorie(tCategorie.getPicker().getSelectedString());
@@ -251,10 +274,17 @@ public class ModifierAnnonce extends SideMenuBaseForm{
                 }
 //                a.setPhoto("9860939036c45b557702b55617fd103f.jpeg");
                 a.setIdu(78);
-                
+                if(tActive.isValue())
+                {
+                    a.setActive(true);
+                }
+                else 
+                {
+                    a.setActive(false);
+                }
                 System.out.println(a);
                 if(verifierChamps(a, tPrix.getText())){
-                as.ModifierAnnonce(a);
+                AnnonceService.getInstance().ModifierAnnonce(a);
                 System.out.println("Annonce modifiée avec succès");
                 Vars.current_choice=1;
                 AfficherListeAnnonces listeAnnonces=new AfficherListeAnnonces(res);
@@ -318,7 +348,7 @@ public class ModifierAnnonce extends SideMenuBaseForm{
    
     @Override
     protected void showOtherForm(Resources res) {
-        new StatsForm(res).show();
+        new ProfileForm(res).show();
     }
     
 }

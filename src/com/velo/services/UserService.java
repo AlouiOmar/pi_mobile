@@ -42,7 +42,7 @@ public class UserService {
     public void Login(String username, String password) {
 //        ConnectionRequest con = new ConnectionRequest();
         con.setPost(true);
-        con.setUrl("http://127.0.0.1:8000/loginm/");
+        con.setUrl(Vars.base_url+"/loginm/");
         con.addArgument("username", username);
         con.addArgument("password", password);
         con.addResponseListener(new ActionListener<NetworkEvent>() {
@@ -76,8 +76,8 @@ public class UserService {
 
     public void Register(User user) {
 //        ConnectionRequest con = new ConnectionRequest();
-        con.setPost(false);
-        con.setUrl("http://127.0.0.1:8000/registerm/");
+        con.setPost(true);
+        con.setUrl(Vars.base_url+"/registerm/");
         con.addArgument("username", user.getUsername());
         con.addArgument("nom", user.getNom());
         con.addArgument("prenom", user.getPrenom());
@@ -111,8 +111,8 @@ public class UserService {
     
    /* public boolean Register() {
         ConnectionRequest con = new ConnectionRequest();
-        con.setPost(false);
-        con.setUrl("http://127.0.0.1:8000/registerm/");
+        con.setPost(true);
+        con.setUrl(Vars.base_url+"/registerm/");
         con.addArgument("username", user.getUsername());
         con.addArgument("nom", user.getNom());
         con.addArgument("prenom", user.getPrenom());
