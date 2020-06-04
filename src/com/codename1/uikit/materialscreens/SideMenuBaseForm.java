@@ -79,6 +79,7 @@ public abstract class SideMenuBaseForm extends Form {
         
         
     getToolbar().addComponentToSideMenu(sidemenuTop);
+    getToolbar().addMaterialCommandToSideMenu("  Profile", FontImage.MATERIAL_LIST,  e -> new ProfileForm(res,"Cyclistedu56").show());
       getToolbar().addMaterialCommandToSideMenu("  Liste des événements", FontImage.MATERIAL_LIST,  e -> new AfficherEventsForm(res).show());
       getToolbar().addMaterialCommandToSideMenu("  Ajouter un événement", FontImage.MATERIAL_SHOPPING_CART,  e -> new AjouterEventForm(res).show());
       getToolbar().addMaterialCommandToSideMenu("  Déconnection", FontImage.MATERIAL_EXIT_TO_APP,  e -> new LoginForm(res).show());
