@@ -8,13 +8,17 @@ package com.mycompany.myapp.gui;
 import com.codename1.components.ImageViewer;
 import static com.codename1.push.PushContent.setTitle;
 import com.codename1.ui.Button;
+import com.codename1.ui.Command;
 import com.codename1.ui.Container;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
 import com.codename1.ui.Label;
 import com.codename1.ui.TextField;
+import com.codename1.ui.Toolbar;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.layouts.BoxLayout;
+import com.codename1.ui.util.Resources;
+import com.codename1.uikit.materialscreens.SideMenuBaseForm;
 import com.mycompany.myapp.entities.Event;
 import com.mycompany.myapp.entities.Weather;
 import com.mycompany.myapp.services.ServiceEvent;
@@ -25,13 +29,14 @@ import com.mycompany.myapp.services.WeatherService;
  *
  * @author Administrateur
  */
-public class WeatherForm extends Form {
+public class WeatherForm extends SideMenuBaseForm {
 
     Form current;
 String cityname;
     
-    public WeatherForm(Form previous) {
+    public WeatherForm(Resources res) {
         current=this;
+        setTitle("Choisissez région");
      Button btnGetWx=new Button("Voir météo");
      TextField txtZipcode=new TextField();
      Label lblCity=new Label();
@@ -45,6 +50,15 @@ String cityname;
      show();
      btnGetWx.addActionListener(r->{
                 Form w=new Form("Weather",BoxLayout.y());
+                Command black = new Command("Back") {
+                    @Override
+                    public void actionPerformed(ActionEvent evt) {
+                    show();
+                     }
+                        };
+                    w.getToolbar().setBackCommand(black);
+                    Toolbar mmyToolbar = w.getToolbar();
+                    Button mbuttonToolbar = mmyToolbar.findCommandComponent(black);
               cityname = txtZipcode.getText();
               Weather  weather;
               weather = WeatherService.getInstance().afficherWeather(cityname);

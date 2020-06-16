@@ -52,10 +52,10 @@ public class WalkthruForm extends Form {
         
         Container tab1 = BorderLayout.centerAbsolute(BoxLayout.encloseY(
                 notesPlaceholder,
-                new Label("Keep track of your tasks", "WalkthruWhite"),
-                new SpanLabel("Never miss an appointment, never forget about your " +
-                                            "daily team meeting and remember when your favorite " +
-                                            "team is playing.",  "WalkthruBody"),
+                new Label("Informations", "WalkthruWhite"),
+                new SpanLabel("Grâce a cette application vous trouverez tout ce qu'il vous faut " +
+                                            "pour votre vélo et même en acheter, vendre et louer une."
+                                            ,  "WalkthruBody"),
                 bottomSpace
         ));
         tab1.setUIID("WalkthruTab1");
@@ -66,10 +66,10 @@ public class WalkthruForm extends Form {
         
         Container tab2 = BorderLayout.centerAbsolute(BoxLayout.encloseY(
                 new Label(duke, "ProfilePic"),
-                new Label("Codename One", "WalkthruWhite"),
-                new SpanLabel("Write once run anywhere native mobile development " +
-                                            "Get Java working on all devices as it was always meant " +
-                                            "to be!",  "WalkthruBody"),
+                new Label("Evenements!", "WalkthruWhite"),
+                new SpanLabel("Retrouvez aussi d'autre cycliste pour partager vos expériences " +
+                                            "et même organiser des événements dans différents circuits " +
+                                            "prédéfini!",  "WalkthruBody"),
                 bottomSpaceTab2
         ));
         

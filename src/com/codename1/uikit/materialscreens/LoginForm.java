@@ -10,18 +10,23 @@ import com.codename1.ui.Button;
 import static com.codename1.ui.Component.LEFT;
 import static com.codename1.ui.Component.RIGHT;
 import com.codename1.ui.Container;
+import com.codename1.ui.Dialog;
 import com.codename1.ui.Display;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
 import com.codename1.ui.Image;
 import com.codename1.ui.Label;
 import com.codename1.ui.TextField;
+import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.util.Resources;
 import com.mycompany.myapp.entities.Fos_user;
+import com.mycompany.myapp.entities.Vars;
+import com.mycompany.myapp.log.BCrypt;
 import com.mycompany.myapp.services.ServiceUser;
+import java.util.ArrayList;
 
 /**
  *
@@ -58,9 +63,7 @@ public class LoginForm extends Form {
         Button loginButton = new Button("LOGIN");
         loginButton.setUIID("LoginButton");
         loginButton.addActionListener(e -> {
-      
-          
-                    for(Fos_user u :ServiceUser.getInstance().getAllUsers()){
+            for(Fos_user u :ServiceUser.getInstance().getAllUsers()){
                     
                    
                         if (login.getText().contentEquals(u.getEmail())){
@@ -69,24 +72,61 @@ public class LoginForm extends Form {
      
                      
             new WalkthruForm(theme,Usernom).show();
-        //new HomeForm().show();
-                    
-                    }
-                    
-                    
-                   else 
-                        
-                        {
-                          ToastBar.showMessage("Vérifiez votre e-mail et password !!", FontImage.MATERIAL_WARNING);}
-                       
-                    }
-          
-                    
-               
-                
-           
-        });
         
+                    
+                    }
+                    
+                    }});
+                     
+//                ArrayList<Fos_user>  users = ServiceUser.getInstance().getAllUsers();
+//        boolean res=false;
+//        int i=0;
+//         if ((login.getText().length()==0)||(password.getText().length()==0))
+//              Dialog.show("Alert", "Veuillez remplir les champs vides","ok",null); 
+//           
+//                else
+//         {
+//        while(res==false ){
+//            System.out.println("mot de passe de utilisateur   "+password.getText());
+//            
+//        
+//           String passwordd = password.getText();
+//          
+//         
+//          String crypted = "$2a" + users.get(i).getPassword().substring(3);
+//            if(BCrypt.checkpw(passwordd,crypted) && 
+//                users.get(i).getUsername().equals(login.getText())){
+//                   res=true;
+//                   
+//                   System.out.println(res);
+//             int      idUser=users.get(i).getId();
+//                   System.out.println( "id de l'utilisateur   "+idUser);
+//                    System.out.println( "email de l'utilisateur   "+ users.get(i).getEmail());
+//                    Vars.current_user = users.get(i);
+//                    System.out.println("curent user  " +  Vars.current_user.getId());
+//        
+//            }
+//            else {
+//                i++;
+//               
+//                
+//            }
+//        }
+//         
+//       Fos_user  Us = Vars.current_user;
+//        if(res==true){
+//            
+//          
+//              new WalkthruForm(theme,Us.getUsername()).show();
+//              
+//        
+//        }
+//         else                
+//                        {
+//                          ToastBar.showMessage("Vérifiez votre e-mail et password !!", FontImage.MATERIAL_WARNING);}
+//                        }
+//        
+//            });
         Button createNewAccount = new Button("CREATE NEW ACCOUNT");
         createNewAccount.setUIID("CreateNewAccountButton");
         
@@ -117,3 +157,4 @@ public class LoginForm extends Form {
         by.setScrollVisible(false);
     }
 }
+

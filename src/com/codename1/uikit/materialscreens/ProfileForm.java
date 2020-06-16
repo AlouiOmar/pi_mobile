@@ -22,6 +22,7 @@ import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.layouts.GridLayout;
 import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
+import com.mycompany.myapp.gui.WeatherForm;
 
 /**
  *
@@ -45,13 +46,12 @@ public class ProfileForm extends SideMenuBaseForm {
         menuButton.addActionListener(e -> getToolbar().openSideMenu());
         
         Container remainingTasks = BoxLayout.encloseY(
-                        new Label("12", "CenterTitle"),
-                        new Label("remaining tasks", "CenterSubTitle")
+                        new Label("4", "CenterTitle"),
+                        new Label("événements en cours", "CenterSubTitle")
                 );
         remainingTasks.setUIID("RemainingTasks");
         Container completedTasks = BoxLayout.encloseY(
-                        new Label("32", "CenterTitle"),
-                        new Label("completed tasks", "CenterSubTitle")
+                        new Label("visiter notre sire mondovelo.tn", "CenterSubTitle")
         );
         completedTasks.setUIID("CompletedTasks");
 
@@ -60,7 +60,7 @@ public class ProfileForm extends SideMenuBaseForm {
                         BorderLayout.centerAbsolute(
                                 BoxLayout.encloseY(
                                     new Label(Usernom, "Title"),
-                                    new Label("UI/UX Designer", "SubTitle")
+                                    new Label("Cycliste débutant", "SubTitle")
                                 )
                             ).add(BorderLayout.WEST, profilePicLabel),
                         GridLayout.encloseIn(2, remainingTasks, completedTasks)
@@ -75,10 +75,16 @@ public class ProfileForm extends SideMenuBaseForm {
         
         FontImage arrowDown = FontImage.createMaterial(FontImage.MATERIAL_KEYBOARD_ARROW_DOWN, "Label", 3);
         
-        addButtonBottom(arrowDown, "Finish landing page concept", 0xd997f1, true);
-        addButtonBottom(arrowDown, "Design app illustrations", 0x5ae29d, false);
-        addButtonBottom(arrowDown, "Javascript training ", 0x4dc2ff, false);
-        addButtonBottom(arrowDown, "Surprise Party for Matt", 0xffc06f, false);
+        addButtonBottom(arrowDown, "Produits", 0xd997f1, true);
+        Button weather=new Button("météo");
+        weather.addActionListener(z->{
+            new WeatherForm(res).show();
+        });
+        add(weather);
+        addButtonBottom(arrowDown, "Circuits", 0x5ae29d, false);
+        addButtonBottom(arrowDown, "Evenements ", 0x4dc2ff, false);
+        
+        addButtonBottom(arrowDown, "Forum", 0xffc06f, false);
         setupSideMenu(res);
     }
     

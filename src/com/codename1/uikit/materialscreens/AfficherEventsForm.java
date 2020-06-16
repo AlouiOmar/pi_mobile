@@ -15,6 +15,7 @@ import com.codename1.ui.Form;
 import com.codename1.ui.Label;
 import com.codename1.ui.Slider;
 import com.codename1.ui.TextField;
+import com.codename1.ui.Toolbar;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BorderLayout;
@@ -28,6 +29,10 @@ import com.codename1.uikit.materialscreens.LoginForm;
 import com.codename1.uikit.materialscreens.ProfileForm;
 import com.codename1.uikit.materialscreens.SideMenuBaseForm;
 import com.codename1.uikit.materialscreens.StatsForm;
+import com.mycompany.myapp.entities.Weather;
+import com.mycompany.myapp.services.WeatherService;
+import javafx.scene.control.ToolBar;
+import static jdk.nashorn.internal.objects.NativeJava.extend;
 
 /**
  *
@@ -35,10 +40,10 @@ import com.codename1.uikit.materialscreens.StatsForm;
  */
 
 public class AfficherEventsForm extends SideMenuBaseForm{
-    Form current;
     public AfficherEventsForm(Resources res) {
 
-        current=this;
+        super(BoxLayout.y());
+        setUIID("LoginForm");
         setTitle("List Events");
         for (Event ev : ServiceEvent.getInstance().afficherEvents()){
             int IdE=ev.getIdE();
@@ -50,10 +55,10 @@ public class AfficherEventsForm extends SideMenuBaseForm{
             Label nb=new Label();
             Container cnt1 = new Container(BoxLayout.x());
             Container cnt2 = new Container(BoxLayout.y());
-            
+            cnt2.getStyle().setBgColor(0x99CCCC);
+            cnt2.getStyle().setBgTransparency(255);
             lbTitre.setText("Titre: "+ev.getTitre());
             lbDateE.setText("Date de l'evenement: "+ev.getDateE());
-            lbDescription.setText("Description: "+ev.getDescription());
             lbRegion.setText("Region: "+ev.getRegion());
             lbNameC.setText("Circuit: "+ev.getNameC());
             nb.setText("Nombre de places: "+Integer.toString(ev.getNbplaces()));
@@ -63,9 +68,61 @@ public class AfficherEventsForm extends SideMenuBaseForm{
             Button supprimer=new Button("Supprimer");
             cnt1.addAll(participer,modifier,details,supprimer);
             
+            details.addActionListener(r->{
+                Form det=new Form("Details de l'événement "+ev.getTitre(),BoxLayout.y());
+                Label lbdTitre=new Label("Titre: "+ev.getTitre());
+                Label lbdDateE=new Label("Date de l'evenement: "+ev.getDateE());
+                Label lbdDescription=new Label("Description: "+ev.getDescription());
+                Label lbdRegion=new Label("Region: "+ev.getRegion());
+                Label lbdNameC= new Label("Circuit: "+ev.getNameC());
+                Command back = new Command("Back") {
+                 @Override
+                public void actionPerformed(ActionEvent evt) {
+                show();
+                  }
+                        };
+                det.getToolbar().setBackCommand(back);
+                Toolbar myToolbar = det.getToolbar();
+                Button buttonToolbar = myToolbar.findCommandComponent(back);
+                Button weath=new Button("voir météo région");
+                det.addAll(lbdTitre,lbdDateE,lbdDescription,lbdRegion,lbdNameC,weath);
+                det.show();
+                weath.addActionListener(z->{
+                    
+                    Form wa=new Form("Météo dans "+ev.getRegion(),BoxLayout.y());
+                    Weather  weather;
+                    weather = WeatherService.getInstance().afficherWeather(ev.getRegion());
+                    Label lblCity=new Label ("Citée: "+weather.getCity());
+                    Label lblTime=new Label ("Date: "+weather.getWdate());
+                    Label lblTemperature=new Label ("Temperature: "+weather.getTemperature());
+                    Label lblDescription=new Label ("Status: "+weather.getDescription());
+                    Command black = new Command("Back") {
+                    @Override
+                    public void actionPerformed(ActionEvent evt) {
+                    det.show();
+                     }
+                        };
+                    det.getToolbar().setBackCommand(black);
+                    Toolbar mmyToolbar = det.getToolbar();
+                    Button mbuttonToolbar = myToolbar.findCommandComponent(back);
+                    wa.addAll(lblCity,lblTime,lblTemperature,lblDescription);
+                    
+                    wa.show();
+                    });
+                
+            });
             
             modifier.addActionListener(a->{
-                Form me=new Form("Modifier evenement",BoxLayout.y());               
+                Form me=new Form("Modifier evenement",BoxLayout.y());     
+                Command baack = new Command("Back") {
+                 @Override
+                public void actionPerformed(ActionEvent evt) {
+                show();
+                  }
+                        };
+                me.getToolbar().setBackCommand(baack);
+                Toolbar emyToolbar = me.getToolbar();
+                Button fbuttonToolbar = emyToolbar.findCommandComponent(baack);
                 TextField mtfTitre = new TextField(ev.getTitre(),"Titre");
                 Picker    mdpDateE= new Picker();
                 TextField mtfDescription=new TextField(ev.getDescription(),"Description");
@@ -83,7 +140,7 @@ public class AfficherEventsForm extends SideMenuBaseForm{
                 mlbnbplaces.setText("Nombre de places :"+mnbplaces.getProgress());
                 });       
                 Button btnModifier = new Button("Modifier evenement");
-        
+                
                 btnModifier.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent evt) {

@@ -17,11 +17,12 @@ import com.codename1.ui.TextField;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BoxLayout;
+import com.codename1.ui.plaf.Border;
+import com.codename1.ui.plaf.Style;
 import com.codename1.ui.spinner.Picker;
 import com.codename1.ui.util.Resources;
 import com.codename1.uikit.materialscreens.SideMenuBaseForm;
 import com.mycompany.myapp.entities.Event;
-import com.mycompany.myapp.entities.Task;
 import com.mycompany.myapp.services.ServiceEvent;
 import java.io.IOException;
 
@@ -34,7 +35,9 @@ public class AjouterEventForm extends SideMenuBaseForm{
     public AjouterEventForm(Resources res) {
         setTitle("Ajout de l'evenement");
         setLayout(BoxLayout.y());
-        
+                setUIID("LoginForm");
+                    getStyle().setBgColor(0x99CCCC);
+            getStyle().setBgTransparency(255);
         TextField tfTitre = new TextField("","Titre");
         Picker    dpDateE= new Picker();
         TextField tfDescription=new TextField("","Description");
@@ -42,7 +45,9 @@ public class AjouterEventForm extends SideMenuBaseForm{
         TextField tfNameC=new TextField("","Circuit");
         Container cnt = new Container(BoxLayout.y());
         Label lbnbplaces = new Label("Nombre de places : 0");
+        lbnbplaces.getStyle().setFgColor(0xff000);
         Slider nbplaces = new Slider();
+           nbplaces.getStyle().setBgTransparency(255);
         cnt.add(lbnbplaces);
         cnt.add(nbplaces);
         nbplaces.setEditable(true);
@@ -52,7 +57,7 @@ public class AjouterEventForm extends SideMenuBaseForm{
         lbnbplaces.setText("Nombre de places : "+nbplaces.getProgress());
         });       
         Button btnValider = new Button("Creer evenement");
-        
+        btnValider.setUIID("LoginButton");
         btnValider.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
