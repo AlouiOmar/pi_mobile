@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" prefHeight="900.0" prefWidth="1364.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxapplication4.FXMLDocumentController">
+    <children>
+        <Button fx:id="button" layoutX="140.0" layoutY="270.0" onAction="#add" text="ADD">
+         <font>
+            <Font size="22.0" />
+         </font></Button>
+        <Label fx:id="label" layoutX="56.0" layoutY="190.0" minHeight="16" minWidth="69" />
+      <TextField fx:id="longitude" layoutX="69.0" layoutY="207.0">
+         <font>
+            <Font size="22.0" />
+         </font></TextField>
+      <TextField fx:id="lattitude" layoutX="69.0" layoutY="136.0">
+         <font>
+            <Font size="22.0" />
+         </font></TextField>
+      <Label layoutX="-72.0" layoutY="80.0" prefHeight="32.0" prefWidth="76.0" text="Nom">
+         <font>
+            <Font size="22.0" />
+         </font></Label>
+      <Label layoutX="-72.0" layoutY="144.0" prefHeight="32.0" prefWidth="102.0" text="Lattitude">
+         <font>
+            <Font size="22.0" />
+         </font></Label>
+      <Label layoutX="-72.0" layoutY="215.0" prefHeight="32.0" prefWidth="108.0" text="Longitude">
+         <font>
+            <Font size="22.0" />
+         </font></Label>
+      <TextField fx:id="name" layoutX="69.0" layoutY="72.0">
+         <font>
+            <Font size="22.0" />
+         </font></TextField>
+      <Text layoutX="93.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add Station" wrappingWidth="170.13671875">
+         <font>
+            <Font size="22.0" />
+         </font></Text>
+      <Button fx:id="idAfficher" layoutX="547.0" layoutY="-6.0" onAction="#idAfficherAction" text="afficher" />
+      <TableView fx:id="table" layoutX="543.0" layoutY="60.0" prefHeight="274.0" prefWidth="606.0">
+        <columns>
+          <TableColumn fx:id="idCol" prefWidth="91.0" text="id" />
+          <TableColumn fx:id="nameCol" prefWidth="102.0" text="nom" />
+            <TableColumn fx:id="latCol" prefWidth="108.0" text="lattitude" />
+            <TableColumn fx:id="lonCol" prefWidth="128.0" text="longitude" />
+        </columns>
+      </TableView>
+    </children>
+</AnchorPane>

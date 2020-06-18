@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" fx:id="mainPane" layoutX="150.0" layoutY="100.0" prefHeight="769.0" prefWidth="1364.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxapplication4.CircuitController">
+   <children>
+      
+      <Button fx:id="button" layoutX="70.0" layoutY="389.0" mnemonicParsing="false" onAction="#add" text="Add Circuit" AnchorPane.leftAnchor="70.0" AnchorPane.topAnchor="389.0">
+         <font>
+            <Font size="22.0" />
+         </font></Button>
+      <Button fx:id="afficher" layoutX="532.0" layoutY="1.0" mnemonicParsing="false" onAction="#afficherAction" prefHeight="25.0" prefWidth="176.0" text="Afficher Circuit">
+         <font>
+            <Font size="15.0" />
+         </font></Button>
+      <TableView fx:id="table" layoutX="532.0" layoutY="90.0" onMouseClicked="#selctedItem" prefHeight="291.0" prefWidth="615.0" AnchorPane.bottomAnchor="388.0" AnchorPane.leftAnchor="532.0" AnchorPane.rightAnchor="217.0">
+        <columns>
+          <TableColumn fx:id="nameCol" prefWidth="75.0" text="Nom" />
+          <TableColumn fx:id="departCol" prefWidth="75.0" text="Depart" />
+            <TableColumn fx:id="pauseCol" prefWidth="75.0" text="Pause" />
+            <TableColumn fx:id="endCol" prefWidth="75.0" text="Fin" />
+            <TableColumn fx:id="difficultyCol" prefWidth="75.0" text="Difficulté" />
+            <TableColumn fx:id="distanceCol" prefWidth="75.0" text="Distance" />
+        </columns>
+      </TableView>
+      <TextField fx:id="name" layoutX="20.0" layoutY="-16.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="-16.0">
+         <font>
+            <Font size="22.0" />
+         </font></TextField>
+      <TextField fx:id="distance" layoutX="20.0" layoutY="289.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="289.0">
+         <font>
+            <Font size="22.0" />
+         </font></TextField>
+      <ChoiceBox fx:id="difficulty" layoutX="20.0" layoutY="239.0" prefHeight="25.0" prefWidth="271.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="239.0" />
+      <Label layoutX="-80.0" layoutY="-7.0" text="Nom" AnchorPane.leftAnchor="-80.0" AnchorPane.topAnchor="-7.0">
+         <font>
+            <Font size="22.0" />
+         </font></Label>
+      <Label layoutX="-80.0" layoutY="58.0" text="Depart" AnchorPane.leftAnchor="-80.0" AnchorPane.topAnchor="58.0">
+         <font>
+            <Font size="22.0" />
+         </font></Label>
+      <Label layoutX="-80.0" layoutY="178.0" prefHeight="17.0" prefWidth="32.0" text="Fin" AnchorPane.leftAnchor="-80.0" AnchorPane.topAnchor="178.0">
+         <font>
+            <Font size="22.0" />
+         </font></Label>
+      <Label layoutX="-80.0" layoutY="119.0" text="Pause" AnchorPane.leftAnchor="-80.0" AnchorPane.topAnchor="119.0">
+         <font>
+            <Font size="22.0" />
+         </font></Label>
+      <Label layoutX="-80.0" layoutY="291.0" text="Distance" AnchorPane.leftAnchor="-80.0" AnchorPane.topAnchor="291.0">
+         <font>
+            <Font size="22.0" />
+         </font></Label>
+      <Label layoutX="-80.0" layoutY="234.0" text="Difficulté" AnchorPane.leftAnchor="-80.0" AnchorPane.topAnchor="234.0">
+         <font>
+            <Font size="22.0" />
+         </font></Label>
+      <Button fx:id="btnRefrech" layoutX="541.0" layoutY="55.0" mnemonicParsing="false" onAction="#btnRefrechAction" text="Refrech" />
+      <TextField fx:id="recherche" layoutX="999.0" layoutY="-6.0" />
+      <ChoiceBox fx:id="condition" layoutX="911.0" layoutY="-5.0" onInputMethodTextChanged="#conditionAction" prefHeight="25.0" prefWidth="75.0" />
+      <ChoiceBox fx:id="begin" layoutX="20.0" layoutY="64.0" prefHeight="25.0" prefWidth="269.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="64.0" />
+      <ChoiceBox fx:id="end" layoutX="20.0" layoutY="122.0" prefHeight="25.0" prefWidth="269.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="122.0" />
+      <ChoiceBox fx:id="pause" layoutX="20.0" layoutY="184.0" prefHeight="25.0" prefWidth="269.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="184.0" />
+      <AnchorPane fx:id="mapAnchor" layoutX="209.0" layoutY="371.0" prefHeight="211.0" prefWidth="548.0" AnchorPane.rightAnchor="607.0" />
+      <Button fx:id="loadMap" layoutX="397.0" layoutY="582.0" mnemonicParsing="false" onAction="#btnLoadMap" prefHeight="25.0" prefWidth="124.0" text="Load Map" />
+      <Button fx:id="btnGestionStation" layoutX="14.0" layoutY="582.0" mnemonicParsing="false" onAction="#btnGestionStationAction" text="ajouter station" />
+   </children>
+</AnchorPane>

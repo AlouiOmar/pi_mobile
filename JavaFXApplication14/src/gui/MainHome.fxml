@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane id="AnchorPane" fx:id="mainAnchor" prefHeight="900.0" prefWidth="1600.0" style="-fx-background-color: #0000;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MainHomeController">
+   <children>
+       <ImageView fitHeight="900.0" fitWidth="1600.0" layoutX="-151.0" layoutY="-45.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <image>
+            <Image url="@template.png" />
+         </image>
+      </ImageView>
+      <Pane fx:id="navBarPane" layoutX="66.0" layoutY="164.0" prefHeight="900.0" prefWidth="238.0" style="-fx-background-color: #0000;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <AnchorPane fx:id="primarAnchorPane" layoutX="860.0" layoutY="131.0" prefHeight="769.0" prefWidth="1364.0" style="-fx-background-color: #0000;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="236.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="131.0" />
+       
+            <Button fx:id="btnGestionCircuit" layoutX="1215.0" layoutY="29.0" mnemonicParsing="false" onAction="#btnGestionCircuitAction" prefHeight="96.0" prefWidth="118.0" style="-fx-background-color: none;" />
+   </children>
+</AnchorPane>
