@@ -46,7 +46,7 @@ import com.codename1.ui.util.Resources;
  * @author Shai Almog
  */
 public class WalkthruForm extends Form {
-    public WalkthruForm(Resources res,String Usernom) {
+    public WalkthruForm(Resources res) {
         super(new LayeredLayout());
         getTitleArea().removeAll();
         getTitleArea().setUIID("Container");
@@ -70,11 +70,11 @@ public class WalkthruForm extends Form {
         
         Container tab1 = BorderLayout.centerAbsolute(BoxLayout.encloseY(
                 notesPlaceholder,
-                new Label("Keep track of your tasks", "WalkthruWhite"),
-                new SpanLabel("Never miss an appointment, never forget about your " +
-                                            "daily team meeting and remember when your favorite " +
-                                            "team is playing.",  "WalkthruBody"),
-                bottomSpace
+                new Label("UNE HISTOIRE DE PASSION", "WalkthruWhite"),
+                new SpanLabel("Nous sommes avant tout des cyclistes chevronnés ! Dans l'univers de la petite reine depuis de nombreuses années " +
+                                            "nous saurons répondre à vos questions et vous donner les meilleurs conseils en fonction de vos besoins " +
+                                            "Nous proposons au magasin une offre complète de vélos, accessoires et équipements pour toutes les pratiques.",  "WalkthruBody"),
+                bottomSpace 
         ));
         tab1.setUIID("WalkthruTab1");
         
@@ -121,7 +121,7 @@ public class WalkthruForm extends Form {
         
         Button skip = new Button("Skip");
         skip.setUIID("SkipButton");
-        skip.addActionListener(e -> new ProfileForm(res,Usernom).show());
+        skip.addActionListener(e -> new ProfileForm(res).show());
         
         Container southLayout = BoxLayout.encloseY(
                         radioContainer,

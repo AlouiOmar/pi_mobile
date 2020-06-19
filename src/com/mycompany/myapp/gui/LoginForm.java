@@ -21,6 +21,7 @@ package com.mycompany.myapp.gui;
 
 
 
+import com.codename1.components.SpanLabel;
 import com.codename1.components.ToastBar;
 import com.codename1.ui.Button;
 import com.codename1.ui.Command;
@@ -40,7 +41,7 @@ import com.codename1.ui.util.Resources;
 import com.company.myapp.entities.Fos_user;
 import com.company.myapp.services.ServiceUser;
 import com.mycompany.myapp.gui.WalkthruForm;
-import java.util.Map;
+
 
 /**
  * The Login form
@@ -48,12 +49,14 @@ import java.util.Map;
  * @author Shai Almog
  */
 public class LoginForm extends Form {
+    public static int idus;
+       public static String userName;
     public LoginForm(Resources theme) {
         super(new BorderLayout(BorderLayout.CENTER_BEHAVIOR_CENTER_ABSOLUTE));
         setUIID("LoginForm");
         Container welcome = FlowLayout.encloseCenter(
-                new Label("Mondo ", "WelcomeWhite"),
-                new Label("Vélo", "WelcomeBlue")
+                new Label("Mondo Vélo", "Title"),
+                                    new Label("Pour les cyclistes,Par les cyclistes ", "SubTitle")
         );
         
         getTitleArea().setUIID("Container");
@@ -79,36 +82,64 @@ public class LoginForm extends Form {
         loginButton.setUIID("LoginButton");
         loginButton.addActionListener(e -> {
       
-          
-                    for(Fos_user u :ServiceUser.getInstance().getAllUsers()){
-                    
-                   
-                        if (login.getText().contentEquals(u.getEmail())){
-            
-            String Usernom=u.getUsername();
-       
-                     
-            new WalkthruForm(theme,Usernom).show();
         
-                    
-                    }
-                    
-                    
-                   else 
-                        
-                        {
-                          ToastBar.showMessage("Vérifiez votre e-mail et password !!", FontImage.MATERIAL_WARNING);}
-                       
-                    }
-          
+                   for(Fos_user u :ServiceUser.getInstance().getAllUsers()){
+//                    
+//                       
+//                   
+                      if (login.getText().equals(u.getUsername())){
+                         System.out.println("egaux");
+//         
+           idus=u.getId();
+       userName=u.getUsername();
+//          
+//     
+//                    
+                 }
+                   String str="ROLE_CLIENT" +
+"ROLE_USER";
+                      if (str.equals(u.getRoles())){
+                         System.out.println("role client");
+                      }
+                   
+                   
+                   }
+//                    
+//                    
+//                 
                     
                 
+                    
+                    
+                    
+                    
+                        ServiceUser us = new ServiceUser();
+                if(ServiceUser.recupererUser(login.getText(),password.getText())== 0){
+                    
+                    
+                 
+            new WalkthruForm(theme).show();
+     
+                }
+              else{
+                    Dialog dlg = new Dialog("Erreurs!");
+                    dlg.setLayout(new BorderLayout());
+                    dlg.setDialogType(Dialog.TYPE_WARNING);
+                    dlg.add(BorderLayout.CENTER,new SpanLabel("Veuillez vérifier votre username ou mot de passe.", "DialogBody"));
+                    int h = Display.getInstance().getDisplayHeight();
+                    dlg.setDisposeWhenPointerOutOfBounds(true);
+                    dlg.show();
+                }
+            
+                    
+                    
+                    
+                    
                 
            
         });
         
-        Button createNewAccount = new Button("CREATE NEW ACCOUNT");
-        createNewAccount.setUIID("CreateNewAccountButton");
+     
         
         // We remove the extra space for low resolution devices so things fit better
         Label spaceLabel;
@@ -120,20 +151,28 @@ public class LoginForm extends Form {
         
         
         Container by = BoxLayout.encloseY(
-                welcome,
                 profilePicLabel,
+                welcome,
                 spaceLabel,
                 BorderLayout.center(login).
                         add(BorderLayout.WEST, loginIcon),
                 BorderLayout.center(password).
                         add(BorderLayout.WEST, passwordIcon),
-                loginButton,
-                createNewAccount
+                loginButton
         );
         add(BorderLayout.CENTER, by);
         
         // for low res and landscape devices
         by.setScrollableY(true);
         by.setScrollVisible(false);
+        
+        
+        
+        
+        
+        
+        
+        
+ 
     }
 }

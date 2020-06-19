@@ -6,6 +6,7 @@
 package com.mycompany.myapp.gui;
 
 import com.codename1.components.ImageViewer;
+import com.codename1.ui.Button;
 import com.codename1.ui.Container;
 import com.codename1.ui.EncodedImage;
 import com.codename1.ui.FontImage;
@@ -18,6 +19,7 @@ import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
 import com.company.myapp.entities.Produit;
+import com.company.myapp.utils.Statics;
 
 /**
  *
@@ -37,13 +39,19 @@ public class ShowSingleForm extends Form{
             ImageViewer image = new ImageViewer(urlimg);
             Image imgg = image.getImage();
             
-            Label lbprix=new Label("Prix : "+p.getPrix_P()+" DT");
+            Label lbprix=new Label("Prix : "+(int)p.getPrix_P()+" DT");
             Label lbNom=new Label("Nom : "+p.getNom_P());
             Label lbcat=new Label("Catégorie : "+p.getCategorie_P());
             Label lbmarque=new Label("Marque : "+p.getMarque_P());
             Label lbcoul=new Label("Couleur : "+p.getCouleur_P());
            Label lbtel=new Label("Téléphone : "+p.getTel());
-       
+           
+           String stringQr = Statics.BASE_URL+"/ShowMobileSingle/"+ p.getId_P();   
+           
+String urlQR = "https://chart.googleapis.com/chart?cht=qr&chl=" + stringQr + "&choe=UTF-8&chs=500x500";
+URLImage imgQR = URLImage.createToStorage(enc, p.getNom_P() + "Qr", urlQR);
+        ImageViewer imageQR = new ImageViewer(imgQR);
+       Image imggg = imageQR.getImage();
         cont.add(imgg);
         cont.add(lbprix);
         
@@ -52,6 +60,7 @@ public class ShowSingleForm extends Form{
         cont.add(lbmarque);
         cont.add(lbcoul);
         cont.add(lbtel);
+        cont.add(imggg);
         add(cont);
         
          getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e -> previous.showBack());

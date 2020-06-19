@@ -43,7 +43,7 @@ import com.mycompany.myapp.gui.StatsForm;
  * @author Shai Almog
  */
 public class ProfileForm extends SideMenuBaseForm {
-    public ProfileForm(Resources res ,String Usernom) {
+    public ProfileForm(Resources res ) {
         super(BoxLayout.y());
         Toolbar tb = getToolbar();
         tb.setTitleCentered(false);
@@ -73,8 +73,8 @@ public class ProfileForm extends SideMenuBaseForm {
                         FlowLayout.encloseIn(menuButton),
                         BorderLayout.centerAbsolute(
                                 BoxLayout.encloseY(
-                                    new Label(Usernom, "Title"),
-                                    new Label("UI/UX Designer", "SubTitle")
+                                    new Label(LoginForm.userName, "Title"),
+                                    new Label("", "SubTitle")
                                 )
                             ).add(BorderLayout.WEST, profilePicLabel),
                         GridLayout.encloseIn(2, remainingTasks, completedTasks)

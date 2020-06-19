@@ -42,7 +42,9 @@ public class Produit {
 
     
     
-     public Produit(int id_P, String nom_P, String marque_P, String categorie_P, String couleur_P, float prix_P,int tel) {
+    
+    
+      public Produit(int id_P, String nom_P, String marque_P, String categorie_P, String couleur_P, float prix_P, int tel) {
         this.id_P = id_P;
         this.nom_P = nom_P;
         this.marque_P = marque_P;
@@ -50,10 +52,35 @@ public class Produit {
         this.couleur_P = couleur_P;
         this.prix_P = prix_P;
         this.tel = tel;
+   
     }
     
-      public Produit(String nom_P, String marque_P, String categorie_P, String couleur_P, float prix_P,int tel) {
-        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    public Produit(int id_P, String nom_P, String marque_P, String categorie_P, String couleur_P, float prix_P, int tel, int userId) {
+        this.id_P = id_P;
+        this.nom_P = nom_P;
+        this.marque_P = marque_P;
+        this.categorie_P = categorie_P;
+        this.couleur_P = couleur_P;
+        this.prix_P = prix_P;
+        this.tel = tel;
+        this.userId = userId;
+    }
+
+    public Produit(String nom_P, String marque_P, String categorie_P, String couleur_P, float prix_P, int tel) {
+
         this.nom_P = nom_P;
         this.marque_P = marque_P;
         this.categorie_P = categorie_P;
@@ -61,16 +88,16 @@ public class Produit {
         this.prix_P = prix_P;
         this.tel = tel;
     }
-    
-    
-    public Produit(String nom_P, String marque_P, String categorie_P, String couleur_P, float prix_P, String photo_P ,int tel) {
+
+    public Produit(String nom_P, String marque_P, String categorie_P, String couleur_P, float prix_P, String photo_P, int tel) {
         this.nom_P = nom_P;
         this.marque_P = marque_P;
         this.categorie_P = categorie_P;
         this.couleur_P = couleur_P;
         this.prix_P = prix_P;
-         this.photo_P = photo_P;
-          this.tel = tel;
+        this.photo_P = photo_P;
+        this.tel = tel;
+ 
 
     }
 

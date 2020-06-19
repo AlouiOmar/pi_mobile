@@ -6,6 +6,7 @@
 package com.company.myapp.entities;
 
 import java.util.Date;
+import java.util.Objects;
 
 
 /**
@@ -23,7 +24,7 @@ public class Fos_user {
     private Date last_login;
     private String confirmation_token;
     private Date password_requested_at;
-    private Long roles;
+    private String roles;
     private String nom;
     private String prenom;
 
@@ -31,7 +32,7 @@ public class Fos_user {
     
    public Fos_user(){}  
     
-    public Fos_user(int id, String username, String username_canonical, String email, int enabled, String salt, String password, Date last_login, String confirmation_token, Date password_requested_at, Long roles, String nom, String prenom) {
+    public Fos_user(int id, String username, String username_canonical, String email, int enabled, String salt, String password, Date last_login, String confirmation_token, Date password_requested_at, String roles, String nom, String prenom) {
         this.id = id;
         this.username = username;
         this.username_canonical = username_canonical;
@@ -130,11 +131,11 @@ public class Fos_user {
         this.password_requested_at = password_requested_at;
     }
 
-    public Long getRoles() {
+    public String getRoles() {
         return roles;
     }
 
-    public void setRoles(Long roles) {
+    public void setRoles(String roles) {
         this.roles = roles;
     }
 
@@ -157,6 +158,79 @@ public class Fos_user {
     @Override
     public String toString() {
         return "Fos_user{" + "id=" + id + ", username=" + username + ", username_canonical=" + username_canonical + ", email=" + email + ", enabled=" + enabled + ", salt=" + salt + ", password=" + password + ", last_login=" + last_login + ", confirmation_token=" + confirmation_token + ", password_requested_at=" + password_requested_at + ", roles=" + roles + ", nom=" + nom + ", prenom=" + prenom + '}';
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 97 * hash + this.id;
+        hash = 97 * hash + Objects.hashCode(this.username);
+        hash = 97 * hash + Objects.hashCode(this.username_canonical);
+        hash = 97 * hash + Objects.hashCode(this.email);
+        hash = 97 * hash + this.enabled;
+        hash = 97 * hash + Objects.hashCode(this.salt);
+        hash = 97 * hash + Objects.hashCode(this.password);
+        hash = 97 * hash + Objects.hashCode(this.last_login);
+        hash = 97 * hash + Objects.hashCode(this.confirmation_token);
+        hash = 97 * hash + Objects.hashCode(this.password_requested_at);
+        hash = 97 * hash + Objects.hashCode(this.roles);
+        hash = 97 * hash + Objects.hashCode(this.nom);
+        hash = 97 * hash + Objects.hashCode(this.prenom);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Fos_user other = (Fos_user) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        if (this.enabled != other.enabled) {
+            return false;
+        }
+        if (!Objects.equals(this.username, other.username)) {
+            return false;
+        }
+        if (!Objects.equals(this.username_canonical, other.username_canonical)) {
+            return false;
+        }
+        if (!Objects.equals(this.email, other.email)) {
+            return false;
+        }
+        if (!Objects.equals(this.salt, other.salt)) {
+            return false;
+        }
+        if (!Objects.equals(this.password, other.password)) {
+            return false;
+        }
+        if (!Objects.equals(this.confirmation_token, other.confirmation_token)) {
+            return false;
+        }
+        if (!Objects.equals(this.nom, other.nom)) {
+            return false;
+        }
+        if (!Objects.equals(this.prenom, other.prenom)) {
+            return false;
+        }
+        if (!Objects.equals(this.last_login, other.last_login)) {
+            return false;
+        }
+        if (!Objects.equals(this.password_requested_at, other.password_requested_at)) {
+            return false;
+        }
+        if (!Objects.equals(this.roles, other.roles)) {
+            return false;
+        }
+        return true;
     }
     
 

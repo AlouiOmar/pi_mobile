@@ -5,7 +5,14 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Raef/Desktop/mobile/PiDevMobile/src/com/company/myapp/services/ServiceProduit.java</file>
+            <file>file:/C:/Users/Raef/Desktop/mobile/PiDevMobile/src/com/mycompany/myapp/gui/ShowSingleForm.java</file>
+            <file>file:/C:/Users/Raef/Desktop/mobile/PiDevMobile/src/com/mycompany/myapp/gui/LoginForm.java</file>
+            <file>file:/C:/Users/Raef/Desktop/mobile/PiDevMobile/src/com/mycompany/myapp/gui/HighListProductForm.java</file>
+            <file>file:/C:/Users/Raef/Desktop/mobile/PiDevMobile/src/com/company/myapp/services/ServiceUser.java</file>
             <file>file:/C:/Users/Raef/Desktop/mobile/PiDevMobile/src/com/mycompany/myapp/gui/ListPanierMobileForm.java</file>
+            <file>file:/C:/Users/Raef/Desktop/mobile/PiDevMobile/src/com/mycompany/myapp/gui/LowListProductForm.java</file>
+            <file>file:/C:/Users/Raef/Desktop/mobile/PiDevMobile/src/com/mycompany/myapp/gui/ListProductForm.java</file>
+            <file>file:/C:/Users/Raef/Desktop/mobile/PiDevMobile/src/com/mycompany/myapp/gui/AddProductForm.java</file>
         </group>
     </open-files>
 </project-private>

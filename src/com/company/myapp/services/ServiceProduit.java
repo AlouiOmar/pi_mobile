@@ -41,7 +41,7 @@ public class ServiceProduit {
         return instance;
     }
     
-     public boolean addProduit(Produit p,String tp) {
+     public boolean addProduit(Produit p,String tp,int user) {
         String url = Statics.BASE_URL + "/AddMobile/" + p.getId_P()
                 + "/" + p.getNom_P()
                 + "/" + p.getMarque_P()
@@ -50,7 +50,8 @@ public class ServiceProduit {
                 + "/" +p.getPrix_P()    
                 + "/"+tp
                 + "/" +p.getPhoto_P()
-                + "/" +p.getTel();
+                + "/" +p.getTel()
+                + "/" +user;
         
         req.setUrl(url);
         req.addResponseListener(new ActionListener<NetworkEvent>() {
@@ -111,12 +112,11 @@ public class ServiceProduit {
                
                 p.setPhoto_P(obj.get("photoP").toString());
                p.setTel(((int)Float.parseFloat(obj.get("tel").toString())));
-//             
-//                 Map<String,Object> objuser =(Map<String,Object>) obj.get("userid");
-//                float idUser=Float.parseFloat(objuser.get("id").toString());
-//               int idUserI=(int) idUser;
-//               p.setUserId(idUserI);
-//                
+                            Map<String,Object> objuser =(Map<String,Object>) obj.get("userid");
+              float idUser=Float.parseFloat(objuser.get("id").toString());
+              int idUserI=(int) idUser;
+              p.setUserId(idUserI);
+               
                 produits.add(p);
             }
             

@@ -5,10 +5,19 @@
  */
 package com.mycompany.myapp.gui;
 
+import com.codename1.capture.Capture;
 import com.codename1.components.FloatingActionButton;
 import com.codename1.components.FloatingHint;
+import com.codename1.components.InfiniteProgress;
 import com.codename1.components.ScaleImageLabel;
+import com.codename1.io.File;
+import com.codename1.io.FileSystemStorage;
+import com.codename1.io.Log;
+import com.codename1.io.MultipartRequest;
+import com.codename1.io.NetworkManager;
+import com.codename1.io.Storage;
 import com.codename1.ui.Button;
+import com.codename1.ui.CN;
 import com.codename1.ui.ComboBox;
 import com.codename1.ui.Command;
 import com.codename1.ui.Component;
@@ -33,17 +42,19 @@ import com.codename1.ui.layouts.GridLayout;
 import com.codename1.ui.layouts.LayeredLayout;
 import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
+import com.codename1.util.SuccessCallback;
 import com.company.myapp.entities.Produit;
 import com.company.myapp.entities.TypeProduit;
 import com.company.myapp.services.ServiceProduit;
 import com.company.myapp.services.ServiceType;
-import com.mycompany.myapp.gui.ProfileForm;
+import java.io.IOException;
+
 /**
  *
  * @author Raef
  */
 public class AddProductForm extends SideMenuBaseForm{
-
+public static String urlimg;
    public AddProductForm(Resources res) {
     
               super(BoxLayout.y());
@@ -79,7 +90,10 @@ public class AddProductForm extends SideMenuBaseForm{
          TextField tfCouleur= new TextField("", "Couleur");
          TextField tfPrix= new TextField("", "Prix");
          TextField tfPhoto= new TextField("", "photo");
+          
          tfPhoto.setText("velo6.jpg");
+         Button uplo=new Button("upload");
+         
          TextField tfTel= new TextField("", "Téléphone");
          ComboBox tftypes=new ComboBox();
          try {
@@ -100,22 +114,63 @@ public class AddProductForm extends SideMenuBaseForm{
         tfCouleur.setSingleLineTextArea(false);
          tfPrix.setSingleLineTextArea(false);
         tfPhoto.setSingleLineTextArea(false);
+       
          tfTel.setSingleLineTextArea(false);
          tftypes.setFocusable(false);
          Container content;
        content = BoxLayout.encloseY(
               
-               new FloatingHint(tfNom),
-               
-               new FloatingHint(tfMarque),
+            new FloatingHint(tfNom),
+            
+             new FloatingHint(tfMarque),
                new FloatingHint(tfCategorie),
                new FloatingHint(tfCouleur),
                new FloatingHint(tfPrix),
-               new FloatingHint(tfTel)
+              new FloatingHint(tfTel)
          
        );
         content.setScrollableY(true);
       
+  
+//        
+//      Label imageLbl = new Label();
+//        SuccessCallback<String> callback = (String capturedPhoto) -> {
+//    String rotatedPhoto = FileSystemStorage.getInstance().getAppHomePath()+"rotatedphoto.jpg";
+//            System.out.println(rotatedPhoto);
+//                    int fileNameIndex = rotatedPhoto.lastIndexOf("/") + 1;               
+//   //     urlimg=rotatedPhoto.substring(fileNameIndex);
+//
+//    if (capturedPhoto != null) {
+//		try {
+//		    // note: we set a maxSize to perform a faster rotation
+//		    int maxSize = CN.convertToPixels(50);
+//                    
+//		    Image img = Image.exifRotation(capturedPhoto, rotatedPhoto, maxSize);
+//		    imageLbl.setIcon(img);
+//		    revalidate();
+//		} catch (IOException ex) {
+//		    Log.e(ex);
+//		}
+//    };
+//};
+//        
+//        
+//        
+//        
+//        uplo.addActionListener(a -> {});
+//        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         btnValider.addActionListener(new ActionListener() {
             @Override
@@ -126,11 +181,11 @@ public class AddProductForm extends SideMenuBaseForm{
                 {
                     try {
                         
-                        Produit p = new Produit(tfNom.getText(), tfMarque.getText(),tfCategorie.getText(),tfCouleur.getText(),Float.parseFloat(tfPrix.getText()),tfPhoto.getText(),Integer.parseInt(tfTel.getText()));
+                        Produit p = new Produit(tfNom.getText(), tfMarque.getText(),tfCategorie.getText(),tfCouleur.getText(),Float.parseFloat(tfPrix.getText()),tfPhoto.getText(),(int)Float.parseFloat(tfTel.getText()));
                        
-                        if( ServiceProduit.getInstance().addProduit(p,tftypes.getSelectedItem().toString())){
+                        if( ServiceProduit.getInstance().addProduit(p,tftypes.getSelectedItem().toString(),LoginForm.idus)){
                           Dialog.show("Alert", "Le produit a été ajouté avec succès", new Command("OK"));
-                            new HomeForm().show();}
+                            new AddProductForm(res).show();}
                         else
                             Dialog.show("ERROR", "Server error", new Command("OK"));
                     } catch (NumberFormatException e) {
@@ -143,7 +198,27 @@ public class AddProductForm extends SideMenuBaseForm{
             }
         });
         
+  
         addAll(content,tftypes ,btnValider);
+     
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
  //getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e->ProfileForm(res));
             setupSideMenu(res);   

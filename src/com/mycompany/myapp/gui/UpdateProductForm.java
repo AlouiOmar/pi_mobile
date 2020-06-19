@@ -40,10 +40,10 @@ public class UpdateProductForm extends Form {
 
         TextField tfCouleur = new TextField(p.getCouleur_P());
         Label tfPrix1 = new Label("Prix");
-        TextField tfPrix = new TextField((int)(float)p.getPrix_P());
+        TextField tfPrix = new TextField(""+(int)(float)p.getPrix_P());
         
-//        Label tftel1 = new Label("Téléphone");
-     // TextField tftel = new TextField(p.getTel());
+        Label tfteleph = new Label("Téléphone");
+      TextField tfteleph1 = new TextField(""+(int)(float)p.getTel());
 
         Button btnValider = new Button("Modifier");
 
@@ -60,7 +60,7 @@ public class UpdateProductForm extends Form {
                         p.setCategorie_P(tfCategorie.getText());
                         p.setCouleur_P(tfCouleur.getText());
                         p.setPrix_P(Float.parseFloat(tfPrix.getText()));
-//                        p.setTel(Integer.parseInt(tftel.getText()));
+                        p.setTel(Integer.parseInt(tfteleph1.getText()));
                         ServiceProduit.getInstance().UpdateProduit(p);
 
                         Dialog.show("", "Le produit a été modifié avec succès", new Command("OK"));
@@ -74,7 +74,7 @@ public class UpdateProductForm extends Form {
             }
         });
 
-        addAll(tfNom1,tfNom, tfMarque1,tfMarque, tfCategorie1,tfCategorie, tfCouleur1,tfCouleur, tfPrix1,tfPrix);
+        addAll(tfNom1,tfNom, tfMarque1,tfMarque, tfCategorie1,tfCategorie, tfCouleur1,tfCouleur, tfPrix1,tfPrix,tfteleph,tfteleph1);
      //add(tftel);
         add(btnValider);
         getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e -> new ListProductForm(previous).show());
