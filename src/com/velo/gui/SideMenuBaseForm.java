@@ -33,6 +33,20 @@ import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.Layout;
 import com.codename1.ui.util.Resources;
+import com.codename1.uikit.materialscreens.AfficherEventsForm;
+import com.mycompany.myapp.AddCircuit;
+import com.mycompany.myapp.ListCircuit;
+import com.mycompany.myapp.ListMyCircuit;
+import com.mycompany.myapp.entities.fos_user;
+import com.mycompany.myapp.gui.AddLocationForm;
+import com.mycompany.myapp.gui.AddProductForm;
+import com.mycompany.myapp.gui.AjouterEventForm;
+import com.mycompany.myapp.gui.HomeForm_1;
+import com.mycompany.myapp.gui.ListLocationsForm;
+import com.mycompany.myapp.gui.ListPanierMobileForm;
+import com.mycompany.myapp.gui.ListProductForm;
+import com.mycompany.myapp.gui.ListReservationsForm;
+import com.mycompany.myapp.utils.Statics_1;
 import com.velo.gui.AfficherListeAnnonces;
 import com.velo.gui.AjouterAnnonce;
 import com.velo.gui.StatistiqueAnnonce;
@@ -47,6 +61,7 @@ import java.io.IOException;
  */
 public abstract class SideMenuBaseForm extends Form {
             private EncodedImage palceHolder;
+            Form current;
 
 
     public SideMenuBaseForm(String title, Layout contentPaneLayout) {
@@ -93,13 +108,38 @@ public abstract class SideMenuBaseForm extends Form {
 //        getToolbar().addMaterialCommandToSideMenu("  Activity", FontImage.MATERIAL_TRENDING_UP,  e -> showOtherForm(res));
         getToolbar().addMaterialCommandToSideMenu("  Ajouter annonce", FontImage.MATERIAL_ADD,  e -> new AjouterAnnonce(res).show());
         getToolbar().addMaterialCommandToSideMenu("  Liste des annonces", FontImage.MATERIAL_LIST,  e -> {Vars.current_choice = 1;new AfficherListeAnnonces(res).show();});
-        getToolbar().addMaterialCommandToSideMenu("  Mes annonces", FontImage.MATERIAL_LIST,  e -> {Vars.current_choice = 2;new AfficherListeAnnonces(res).show();});
-        if(Vars.current_user.getRoles().contains("ADMIN")){
+      if(Vars.current_user.getRoles().contains("ADMIN")){
         getToolbar().addMaterialCommandToSideMenu("  Toutes les Annonces", FontImage.MATERIAL_LIST,  e -> {Vars.current_choice = 8;new AfficherListeAnnonces(res).show();});
         getToolbar().addMaterialCommandToSideMenu("  Annonces signalées", FontImage.MATERIAL_LIST,  e -> {Vars.current_choice = 4;new AfficherListeAnnonces(res).show();});
         getToolbar().addMaterialCommandToSideMenu("  Statistique des annonces", FontImage.MATERIAL_TRENDING_UP,  e -> new StatistiqueAnnonce(res).show());
 
         }
+        getToolbar().addMaterialCommandToSideMenu("  Mes annonces", FontImage.MATERIAL_LIST,  e -> {Vars.current_choice = 2;new AfficherListeAnnonces(res).show();});
+        getToolbar().addMaterialCommandToSideMenu("  Ajouter Produit", FontImage.MATERIAL_DASHBOARD,  e -> new AddProductForm(res).show());
+       
+        getToolbar().addMaterialCommandToSideMenu("  Nos produits", FontImage.MATERIAL_LIST,  e -> new ListProductForm(new AjouterAnnonce(res)).show());
+      getToolbar().addMaterialCommandToSideMenu("  Votre Panier", FontImage.MATERIAL_SHOPPING_CART,  e -> new ListPanierMobileForm(new AjouterAnnonce(res)).show());
+       
+        getToolbar().addMaterialCommandToSideMenu("  Ajouter Circiut", FontImage.MATERIAL_DASHBOARD,  e -> new AddCircuit(res).show());
+      getToolbar().addMaterialCommandToSideMenu("  Nos Circuits", FontImage.MATERIAL_LIST,  e -> new ListCircuit(res).show());
+      getToolbar().addMaterialCommandToSideMenu("  Mes Circuits", FontImage.MATERIAL_LIST,  e -> new ListMyCircuit(res).show());
+        getToolbar().addMaterialCommandToSideMenu("  Liste des événements", FontImage.MATERIAL_LIST,  e -> new AfficherEventsForm(res).show());
+      getToolbar().addMaterialCommandToSideMenu("  Ajouter un événement", FontImage.MATERIAL_SHOPPING_CART,  e -> new AjouterEventForm(res).show());
+//      getToolbar().addMaterialCommandToSideMenu("  Déconnection", FontImage.MATERIAL_EXIT_TO_APP,  e -> new LoginForm(res).show());
+                getToolbar().addMaterialCommandToSideMenu("  Blog", FontImage.MATERIAL_LIST,  e -> {
+                    fos_user us=new fos_user();
+                    us.setId(Vars.current_user.getId());
+                    new HomeForm_1(res,us).show();});
+ getToolbar().addMaterialCommandToSideMenu(" Louer ", FontImage.MATERIAL_ADD, e -> new AddLocationForm(res).show());
+        getToolbar().addMaterialCommandToSideMenu(" Liste Locations ", FontImage.MATERIAL_LIST, e -> {
+            Statics_1.current_choice = 1;
+            new ListLocationsForm(res).show();
+        });
+    
+        getToolbar().addMaterialCommandToSideMenu(" Liste Reservation ", FontImage.MATERIAL_LIST, e -> {
+            Statics_1.current_choice = 1;
+            new ListReservationsForm(res).show();
+        });
         getToolbar().addMaterialCommandToSideMenu("  Logout", FontImage.MATERIAL_EXIT_TO_APP,  e -> {Vars.current_user = null; new LoginForm(res).show();});
 //        getToolbar().addMaterialCommandToSideMenu("  Liste des annonces",FontImage.MATERIAL_EXIT_TO_APP , new ActionListener() {
 //

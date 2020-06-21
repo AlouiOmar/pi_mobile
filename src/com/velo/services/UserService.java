@@ -41,6 +41,7 @@ public class UserService {
 
     public void Login(String username, String password) {
 //        ConnectionRequest con = new ConnectionRequest();
+        con.removeAllArguments();
         con.setPost(true);
         con.setUrl(Vars.base_url+"/loginm/");
         con.addArgument("username", username);
@@ -64,7 +65,7 @@ public class UserService {
                         Vars.current_user.setTelephone(u.get("telephone").toString());
                         Vars.current_user.setRoles(u.get("roles").toString());
                         System.out.println("tel : "+u.get("telephone").toString());
-                        System.out.println(Vars.current_user);
+                        System.out.println("connexion"+Vars.current_user);
                     } catch (IOException ex) {
                         System.out.println(ex);
                     }
@@ -76,7 +77,8 @@ public class UserService {
 
     public void Register(User user) {
 //        ConnectionRequest con = new ConnectionRequest();
-        con.setPost(true);
+        con.removeAllArguments();
+        con.setPost(false);
         con.setUrl(Vars.base_url+"/registerm/");
         con.addArgument("username", user.getUsername());
         con.addArgument("nom", user.getNom());
@@ -96,10 +98,16 @@ public class UserService {
                     try {
                         u = j.parseJSON(new CharArrayReader(json.toCharArray()));
 
-                        Vars.current_user=user;
-                        Vars.current_user.setId((int) Float.parseFloat(u.get("id").toString()));
-                        Vars.current_user.setRoles("ROLE_USER");
-                        System.out.println(Vars.current_user);
+                        Vars.current_user = new User((int) Float.parseFloat(u.get("id").toString()));
+                        Vars.current_user.setUsername(u.get("username").toString());
+                        Vars.current_user.setEmail(u.get("email").toString());
+                        Vars.current_user.setPhoto(u.get("photo").toString());
+                        Vars.current_user.setNom(u.get("nom").toString());
+                        Vars.current_user.setPrenom(u.get("prenom").toString());
+                        Vars.current_user.setTelephone(u.get("telephone").toString());
+                        Vars.current_user.setRoles(u.get("roles").toString());
+                        System.out.println("tel : "+u.get("telephone").toString());
+                        System.out.println("register: "+Vars.current_user);
                     } catch (IOException ex) {
                         System.out.println(ex);
                     }
@@ -107,6 +115,48 @@ public class UserService {
             }
         });
         NetworkManager.getInstance().addToQueueAndWait(con);
+    }
+    User user;
+    public User userInfo(String idu) {
+//        ConnectionRequest con = new ConnectionRequest();
+        User cu=Vars.current_user;
+        System.out.println("cu: "+cu);
+        con.removeAllArguments();
+        con.setPost(true);
+        
+        con.setUrl(Vars.base_url+"/userinfo/");
+        con.addArgument("idu", idu);
+        
+        con.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                String json = new String(con.getResponseData());
+                JSONParser j = new JSONParser();
+                if (json.compareTo("Failed") > 0) {
+                    Map<String, Object> u;
+                    try {
+                        u = j.parseJSON(new CharArrayReader(json.toCharArray()));
+
+                        user = new User((int) Float.parseFloat(u.get("id").toString()));
+                        user.setUsername(u.get("username").toString());
+                        user.setEmail(u.get("email").toString());
+                        user.setPhoto(u.get("photo").toString());
+                        user.setNom(u.get("nom").toString());
+                        user.setPrenom(u.get("prenom").toString());
+                        user.setTelephone(u.get("telephone").toString());
+                        user.setRoles(u.get("roles").toString());
+                        System.out.println("tel : "+u.get("telephone").toString());
+                        System.out.println(user);
+                    } catch (IOException ex) {
+                        System.out.println(ex);
+                    }
+                }
+            }
+        });
+        
+        NetworkManager.getInstance().addToQueueAndWait(con);
+        Vars.current_user=cu;
+        return user;
     }
     
    /* public boolean Register() {

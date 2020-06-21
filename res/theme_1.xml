@@ -7,10 +7,13 @@
     <image name="bike.jpg"  />
     <image name="duke.png" type="multi"  />
     <image name="gradient-overlay.png"  />
+    <image name="loading.png"  />
+    <image name="log.png"  />
     <image name="login-background.jpg"  />
     <image name="logo.png"  />
     <image name="notes.png" type="multi"  />
     <image name="pieces.jpg"  />
+    <image name="Point_d_interrogation.jpg"  />
     <image name="register.jpg"  />
     <image name="round-mask.png" type="multi"  />
     <image name="selected-walkthru.png" type="multi"  />

@@ -38,8 +38,10 @@ import com.velo.gui.ProfileForm;
 import com.velo.gui.SideMenuBaseForm;
 import com.velo.entities.Annonce;
 import com.velo.entities.Stat;
+import com.velo.entities.User;
 import com.velo.services.AnnonceService;
 import com.velo.gui.ModifierAnnonce;
+import com.velo.services.UserService;
 import com.velo.util.Vars;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -114,6 +116,8 @@ public class AfficherAnnonce extends SideMenuBaseForm{
                 imgv.setImage(urlImage);
 
                 }
+                //        String idu=Integer.toString(a.getIdu());
+        User user=UserService.getInstance().userInfo(Integer.toString(a.getIdu()));
         Label lTitre=new Label("Titre: "+a.getTitre());
         Label lGouvernorat=new Label("Gouvernorat: "+a.getGouvernorat());
         Label lCategorie=new Label("Catégorie: "+a.getCategorie());
@@ -124,6 +128,7 @@ public class AfficherAnnonce extends SideMenuBaseForm{
         Label lDate=new Label("Date: "+ress1);
         Label lDatep=new Label("Publiée: "+ress);
         Label lPrix=new Label("Prix: "+a.getPrix());
+        Label lTelephone=new Label("Téléphone: "+user.getTelephone());
         SpanLabel lDescription=new SpanLabel("Description: "+a.getDescription());
         Button bModif=new Button("Modifier");
         Button bSupp=new Button("Supprimer");
@@ -186,7 +191,7 @@ public class AfficherAnnonce extends SideMenuBaseForm{
             dlg.dispose();
             dlg1.show(pre.getHeight()*6, pre.getHeight()*6, pre.getWidth()/2, pre.getWidth()/2);
         });
-        
+
         dlg.addComponent(BorderLayout.SOUTH, cont5);
         dlg1.addComponent(BorderLayout.SOUTH, ok);
         ok.addActionListener(e->{Vars.current_choice = 1;new AfficherListeAnnonces(res).show();});
@@ -198,7 +203,7 @@ public class AfficherAnnonce extends SideMenuBaseForm{
         FontImage.setMaterialIcon(signalButton, FontImage.MATERIAL_FLAG,5);
         FontImage.setMaterialIcon(bSupp, FontImage.MATERIAL_DELETE,5);
         FontImage.setMaterialIcon(bModif, FontImage.MATERIAL_UPDATE,5);
-        
+        System.out.println("######################"+Vars.current_user);
         Container cont6=new Container(new BorderLayout());
         cont6.add(BorderLayout.WEST, lTitre);
         cont6.add(BorderLayout.EAST, signalButton);
@@ -211,7 +216,7 @@ public class AfficherAnnonce extends SideMenuBaseForm{
 //            signalPicker.getPicker().released(); 
         });
         Container cont=new Container(BoxLayout.y());
-        cont.addAll(imgv,cont6,lGouvernorat,lCategorie,lType,lDate,lDatep,lPrix,lDescription);
+        cont.addAll(imgv,cont6,lGouvernorat,lCategorie,lType,lDate,lDatep,lPrix,lTelephone,lDescription);
         if(a.getCategorie().equals("Vélo")){
             Label lTypeVelo=new Label("Type de vélo: "+a.getTypevelo());
             Label lCouleur=new Label("Couleur: "+a.getCouleur());
